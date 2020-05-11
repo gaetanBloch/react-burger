@@ -4,12 +4,21 @@ import styles from './Burger.module.css'
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const Burger = (props) => {
-  const ingredients = Object.keys(props.ingredients)
+  let ingredients = Object.keys(props.ingredients)
     .map(ingredientKey => {
       return [...Array(props.ingredients[ingredientKey])].map((_, index) => {
         return <BurgerIngredient key={ingredientKey + index} type={ingredientKey} />
       });
-    });
+    })
+    .reduce((array, element) => {
+      // Flatten the array of arrays
+      return array.concat(element);
+    }, []);
+
+  if (ingredients.length === 0) {
+    ingredients = <p>Please start adding ingredients!</p>;
+  }
+
   return (
     <div className={styles.Burger}>
       <BurgerIngredient type="bread-top" />
