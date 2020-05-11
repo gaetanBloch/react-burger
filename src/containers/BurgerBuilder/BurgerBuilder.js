@@ -40,6 +40,21 @@ class BurgerBuilder extends Component {
     );
   };
 
+  removeIngredient = (type) => {
+    // Update the count
+    const oldCount = this.state.ingredients[type];
+    if (oldCount > 0) {
+      const updatedCount = oldCount - 1;
+      const updatedIngredients = {...this.state.ingredients};
+      updatedIngredients[type] = updatedCount;
+
+      this.setState({
+          ingredients: updatedIngredients
+        }
+      );
+    }
+  }
+
   render() {
     return (
       <Aux>
