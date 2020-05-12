@@ -10,9 +10,8 @@
   font-weight: bold;
 }
 
-.Button:first-of-type {
-  margin-left: 0;
-  padding-left: 0;
+.Button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .Success {
