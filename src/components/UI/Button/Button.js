@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 import styles from './Button.module.css'
-import BurgerIngredient from '../../Burger/BurgerIngredient/BurgerIngredient';
 
 const Button = (props) => (
   <button className={[styles.Button, styles[props.buttonType]].join(' ')} onClick={props.clicked}>
@@ -10,7 +9,7 @@ const Button = (props) => (
   </button>
 );
 
-BurgerIngredient.propTypes = {
+Button.propTypes = {
   buttonType: PropTypes.string.isRequired,
   clicked: PropTypes.func.isRequired
 }
