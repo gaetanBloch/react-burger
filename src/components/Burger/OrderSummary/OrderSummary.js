@@ -5,9 +5,11 @@ import Aux from '../../../hoc/ReactAux';
 const OrderSummary = (props) => {
   const ingredientSummary = Object.keys(props.ingredients)
     .map(key => {
-      return <li>
-        <span style={{textTransform: 'capitalize'}}>{key}</span>: {props.ingredients[key]}
-      </li>
+      return (
+        <li key={key}>
+          <span style={{textTransform: 'capitalize'}}>{key}</span>: {props.ingredients[key]}
+        </li>
+      );
     });
 
   return (
