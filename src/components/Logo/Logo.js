@@ -4,8 +4,8 @@ import burgerLogo from '../../assets/images/burger-logo.png'
 import styles from './Logo.module.css'
 
 const Logo = (props) => (
-  <div>
-    <img src={burgerLogo} alt="BurgerBuilder" className={styles.Logo} />
+  <div className={styles.Logo}>
+    <img src={burgerLogo} alt="BurgerBuilder" />
   </div>
 );
 
