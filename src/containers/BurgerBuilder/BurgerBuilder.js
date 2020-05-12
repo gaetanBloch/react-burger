@@ -21,21 +21,9 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     totalPrice: 2,
-    purchasable: false
+    purchasable: false,
+    purchasing: false
   }
-
-  updatePurchaseState = (ingredients) => {
-
-    // let sumIngredients = 0;
-    // Object.keys(ingredients).forEach(key => {
-    //   sumIngredients += ingredients[key];
-    // })
-    const sumIngredients = Object.keys(ingredients)
-      .map(key => ingredients[key])
-      .reduce((sum, element) => sum + element, 0);
-
-    this.setState({purchasable: sumIngredients > 0});
-  };
 
   addIngredientHandler = (type) => {
     // Update the count
@@ -82,6 +70,23 @@ class BurgerBuilder extends Component {
     }
   }
 
+  updatePurchaseState = (ingredients) => {
+
+    // let sumIngredients = 0;
+    // Object.keys(ingredients).forEach(key => {
+    //   sumIngredients += ingredients[key];
+    // })
+    const sumIngredients = Object.keys(ingredients)
+      .map(key => ingredients[key])
+      .reduce((sum, element) => sum + element, 0);
+
+    this.setState({purchasable: sumIngredients > 0});
+  };
+
+  purchaseHandler = () => {
+    this.setState({purchasing: true});
+  }
+
   render() {
     const disabledInfo = {...this.state.ingredients};
     Object.keys(disabledInfo).forEach(key => {
@@ -90,7 +95,7 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal>
+        <Modal show={this.state.purchasing}>
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -99,6 +104,7 @@ class BurgerBuilder extends Component {
           purchasable={this.state.purchasable}
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredient}
+          ordered={this.purchaseHandler}
           disabled={disabledInfo} />
       </Aux>
     );
