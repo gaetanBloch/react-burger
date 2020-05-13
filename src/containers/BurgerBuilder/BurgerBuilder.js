@@ -16,10 +16,12 @@ const INGREDIENT_PRICES = {
   bacon: 1
 }
 
+const INITIAL_PRICE = 2;
+
 class BurgerBuilder extends Component {
   state = {
     ingredients: null,
-    totalPrice: 2,
+    totalPrice: 0,
     purchasable: false,
     purchasing: false,
     loading: false
@@ -31,7 +33,20 @@ class BurgerBuilder extends Component {
 
   getIngredients = async () => {
     const response = await axios.get('/ingredients.json');
-    this.setState({ingredients: response.data});
+    this.setState({
+      ingredients: response.data,
+      totalPrice: this.calculateInitialPrice(response.data)
+    });
+  }
+
+  calculateInitialPrice = (ingredients) => {
+    const totalPrice = Object.keys(ingredients)
+      .map(key => ingredients[key] * INGREDIENT_PRICES[key])
+      .reduce((sum, price) => {
+        sum += price
+        return sum;
+      });
+    return INITIAL_PRICE + totalPrice;
   }
 
   addIngredientHandler = (type) => {
