@@ -25,13 +25,12 @@ class BurgerBuilder extends Component {
     loading: false
   }
 
-
   componentDidMount() {
     this.getIngredients();
   }
 
   getIngredients = async () => {
-    const response = await axios.get('/ingredients');
+    const response = await axios.get('/ingredients.json');
     this.setState({ingredients: response.data});
   }
 
@@ -134,11 +133,28 @@ class BurgerBuilder extends Component {
       disabledInfo[key] = disabledInfo[key] <= 0;
     });
 
-    let orderSummary = <OrderSummary
-      ingredients={this.state.ingredients}
-      price={this.state.totalPrice}
-      purchaseCancelled={this.purchaseCancelHandler}
-      purchaseContinued={this.purchaseContinueHandler} />;
+    let orderSummary = null;
+    let burger = <Spinner />;
+
+    if (this.state.ingredients) {
+      burger = <Aux>
+        <Burger ingredients={this.state.ingredients} />
+        <BuildControls
+          price={this.state.totalPrice}
+          purchasable={this.state.purchasable}
+          ingredientAdded={this.addIngredientHandler}
+          ingredientRemoved={this.removeIngredient}
+          ordered={this.purchaseHandler}
+          disabled={disabledInfo} />
+      </Aux>;
+
+      orderSummary = <OrderSummary
+        ingredients={this.state.ingredients}
+        price={this.state.totalPrice}
+        purchaseCancelled={this.purchaseCancelHandler}
+        purchaseContinued={this.purchaseContinueHandler} />;
+    }
+
     if (this.state.loading) {
       orderSummary = <Spinner />;
     }
@@ -148,14 +164,7 @@ class BurgerBuilder extends Component {
         <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
-        <Burger ingredients={this.state.ingredients} />
-        <BuildControls
-          price={this.state.totalPrice}
-          purchasable={this.state.purchasable}
-          ingredientAdded={this.addIngredientHandler}
-          ingredientRemoved={this.removeIngredient}
-          ordered={this.purchaseHandler}
-          disabled={disabledInfo} />
+        {burger}
       </Aux>
     );
   }
