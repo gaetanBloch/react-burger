@@ -24,7 +24,8 @@ class BurgerBuilder extends Component {
     totalPrice: 0,
     purchasable: false,
     purchasing: false,
-    loading: false
+    loading: false,
+    error: false
   }
 
   componentDidMount() {
@@ -32,20 +33,21 @@ class BurgerBuilder extends Component {
   }
 
   getIngredients = async () => {
-    const response = await axios.get('/ingredients.json');
-    this.setState({
-      ingredients: response.data,
-      totalPrice: this.calculateInitialPrice(response.data)
-    });
+    try {
+      const response = await axios.get('/ingredients.json');
+      this.setState({
+        ingredients: response.data,
+        totalPrice: this.calculateInitialPrice(response.data)
+      });
+    } catch (error) {
+      this.setState({error: true})
+    }
   }
 
   calculateInitialPrice = (ingredients) => {
     const totalPrice = Object.keys(ingredients)
       .map(key => ingredients[key] * INGREDIENT_PRICES[key])
-      .reduce((sum, price) => {
-        sum += price
-        return sum;
-      });
+      .reduce((sum, price) => sum + price);
     return INITIAL_PRICE + totalPrice;
   }
 
@@ -149,7 +151,13 @@ class BurgerBuilder extends Component {
     });
 
     let orderSummary = null;
-    let burger = <Spinner />;
+    let burger;
+
+    if (this.state.error) {
+      burger = <p style={{textAlign: 'center'}}>Ingredients can't be loaded!</p>
+    } else {
+      burger = <Spinner />;
+    }
 
     if (this.state.ingredients) {
       burger = <Aux>
