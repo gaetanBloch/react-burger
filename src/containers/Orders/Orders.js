@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from '../../axios-orders'
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Order from '../../components/Order/Order';
 
 class Orders extends Component {
@@ -13,7 +14,7 @@ class Orders extends Component {
   }
 
   getOrders = async () => {
-    const response = await axios.get('/orders');
+    const response = await axios.get('/orders.json');
     const fetchedOrders = [];
     Object.keys(response.data).forEach(key => {
       fetchedOrders.push({
@@ -27,11 +28,12 @@ class Orders extends Component {
   render() {
     return (
       <div>
-        <Order />
-        <Order />
+        {this.state.orders.map(order => {
+          return <Order key={order.id} order={order} />
+        })}
       </div>
     );
   }
 }
 
-export default Orders;
+export default withErrorHandler(Orders, axios);
