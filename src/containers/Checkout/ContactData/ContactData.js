@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from '../../../axios-orders'
 
 import styles from './ContactData.module.css'
 import Button from '../../../components/UI/Button/Button';
@@ -14,9 +15,32 @@ class ContactData extends Component {
     }
   };
 
-  orderHandler = (event) => {
+  orderHandler = async (event) => {
     event.preventDefault();
-    console.log(this.props.ingredients);
+
+    const order = {
+      ingredients: this.props.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: 'Gaëtan Bloch',
+        address: {
+          street: 'Nantes street',
+          zipCode: '44300',
+          country: 'France'
+        },
+        email: 'gaetan.bloch@gmail.com'
+      },
+      deliveryMethod: 'fastest'
+    }
+
+    try {
+      const response = await axios.post('/orders.json', order);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({loading: false, purchasing: false});
+    }
   };
 
   render() {
