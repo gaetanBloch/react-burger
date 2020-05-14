@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './Burger.module.css'
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
@@ -26,6 +27,10 @@ const Burger = (props) => {
       <BurgerIngredient type="bread-bottom" />
     </div>
   );
+}
+
+Burger.propTypes = {
+  ingredients: PropTypes.array.isRequired
 }
 
 export default Burger;
