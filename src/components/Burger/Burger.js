@@ -30,7 +30,7 @@ const Burger = (props) => {
 }
 
 Burger.propTypes = {
-  ingredients: PropTypes.array.isRequired
+  ingredients: PropTypes.object.isRequired
 }
 
 export default Burger;

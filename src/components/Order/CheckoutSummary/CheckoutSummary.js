@@ -6,20 +6,29 @@ import Burger from '../../Burger/Burger';
 import Button from '../../UI/Button/Button';
 
 const CheckoutSummary = (props) => {
+
+  const cancelHandler = () => {
+
+  };
+
+  const continueHandler = () => {
+
+  };
+
   return (
     <div className={styles.CheckoutSummary}>
-      <h1>We hope it tasted well!</h1>
+      <h1>We hope it tastes well!</h1>
       <div className={styles.Burger}>
         <Burger ingredients={props.ingredients} />
       </div>
-      <Button buttonType="Danger" clicked={}>CANCEL</Button>
-      <Button buttonType="Success" clicked={}>CONTINUE</Button>
+      <Button buttonType="Danger" clicked={cancelHandler}>CANCEL</Button>
+      <Button buttonType="Success" clicked={continueHandler}>CONTINUE</Button>
     </div>
   );
 };
 
 CheckoutSummary.propTypes = {
-  ingredients: PropTypes.array.isRequired
+  ingredients: PropTypes.object.isRequired
 }
 
 export default CheckoutSummary;
