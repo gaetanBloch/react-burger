@@ -19,7 +19,7 @@ class Checkout extends Component {
         if (param[0] !== 'price') {
           ingredients[param[0]] = +param[1];
         } else {
-          price = param[1];
+          price = +param[1];
         }
       }
       this.setState({ingredients: ingredients, totalPrice: price});

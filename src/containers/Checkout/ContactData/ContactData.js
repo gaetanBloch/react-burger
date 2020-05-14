@@ -38,8 +38,6 @@ class ContactData extends Component {
       console.log(response);
     } catch (error) {
       console.log(error);
-    } finally {
-      this.setState({loading: false, purchasing: false});
     }
   };
 
