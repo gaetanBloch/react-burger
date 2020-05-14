@@ -149,13 +149,21 @@ class BurgerBuilder extends Component {
   };
 
   buildIngredientsParams = () => {
-    let result = '?'
-    result += Object.keys(this.state.ingredients)
-      .map(key => key + '=' + this.state.ingredients[key])
-      .reduce((params, keyValue) => params + keyValue + '&', '');
-    result = result.substring(0, result.length - 1);
-    console.log(result);
-    return result;
+    // let result = '?';
+    // result += Object.keys(this.state.ingredients)
+    //   .map(key => {
+    //     return encodeURIComponent(key) + '=' + encodeURIComponent(this.state.ingredients[key]);
+    //   })
+    //   .reduce((params, keyValue) => params + keyValue + '&', '');
+    // result = result.substring(0, result.length - 1);
+    // return result;
+    const queryParams = [];
+    Object.keys(this.state.ingredients).forEach((key) => {
+      queryParams.push(
+        encodeURIComponent(key) + '=' + encodeURIComponent(this.state.ingredients[key])
+      );
+    });
+    return '?' + queryParams.join('&');
   }
 
   render() {
