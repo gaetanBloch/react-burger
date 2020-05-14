@@ -22,7 +22,7 @@ class Checkout extends Component {
   }
 
   checkoutContinuedHandler = () => {
-    this.props.history.replace('/checkout/contact-data');
+    this.props.history.replace(this.props.match.url + '/contact-data');
   }
 
   render() {
