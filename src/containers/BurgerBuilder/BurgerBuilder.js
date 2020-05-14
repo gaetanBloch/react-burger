@@ -10,10 +10,10 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const INGREDIENT_PRICES = {
-  salad: 0.5,
+  alad: 0.5,
+  bacon: 1,
   cheese: 1,
-  meat: 2,
-  bacon: 1
+  meat: 2
 }
 
 const INITIAL_PRICE = 2;
@@ -154,6 +154,7 @@ class BurgerBuilder extends Component {
       .map(key => key + '=' + this.state.ingredients[key])
       .reduce((params, keyValue) => params + keyValue + '&', '');
     result = result.substring(0, result.length - 1);
+    console.log(result);
     return result;
   }
 

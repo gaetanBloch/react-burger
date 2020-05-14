@@ -4,7 +4,7 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 class Checkout extends Component {
   state = {
     ingredients: {
-      salad: 1,
+      alad: 1,
       bacon: 1,
       cheese: 1,
       meat: 1
