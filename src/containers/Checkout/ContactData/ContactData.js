@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './ContactData.module.css'
 import Button from '../../../components/UI/Button/Button';
@@ -14,7 +15,7 @@ class ContactData extends Component {
   };
 
   orderHandler = () => {
-    
+
   };
 
   render() {
@@ -31,6 +32,10 @@ class ContactData extends Component {
       </div>
     );
   }
+}
+
+ContactData.propTypes = {
+  ingredients: PropTypes.object.isRequired
 }
 
 export default ContactData;
