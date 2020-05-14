@@ -8,7 +8,9 @@ const OrderSummary = (props) => {
     .map(key => {
       return (
         <li key={key}>
-          <span style={{textTransform: 'capitalize'}}>{key}</span>: {props.ingredients[key]}
+          <span style={{textTransform: 'capitalize'}}>
+            {key === 'alad' ? 'salad' : key}
+          </span>: {props.ingredients[key]}
         </li>
       );
     });
