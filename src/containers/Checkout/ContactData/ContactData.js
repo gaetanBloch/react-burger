@@ -5,7 +5,6 @@ import axios from '../../../axios-orders'
 import styles from './ContactData.module.css'
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import { withRouter } from 'react-router';
 
 class ContactData extends Component {
   state = {
@@ -77,4 +76,4 @@ ContactData.propTypes = {
   price: PropTypes.number.isRequired
 }
 
-export default withRouter(ContactData);
+export default ContactData;
