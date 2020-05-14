@@ -11,6 +11,7 @@ class Checkout extends Component {
 
   componentDidMount() {
     if (this.props.location.search) {
+      // Parse query parameters
       const queryParams = new URLSearchParams(this.props.location.search);
       const ingredients = {};
       let price = 0;
@@ -46,7 +47,10 @@ class Checkout extends Component {
           checkoutContinued={this.checkoutContinuedHandler} />
         <Route
           path={this.getContactDataPath()}
-          render={() => <ContactData ingredients={this.state.ingredients} />} />
+          render={() => <ContactData
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice} />
+          } />
       </div>
     );
   }

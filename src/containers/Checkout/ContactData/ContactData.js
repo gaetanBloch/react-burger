@@ -20,15 +20,15 @@ class ContactData extends Component {
 
     const order = {
       ingredients: this.props.ingredients,
-      price: this.state.totalPrice,
+      price: this.props.price,
       customer: {
         name: 'Gaëtan Bloch',
+        email: 'gaetan.bloch@gmail.com',
         address: {
           street: 'Nantes street',
           zipCode: '44300',
           country: 'France'
-        },
-        email: 'gaetan.bloch@gmail.com'
+        }
       },
       deliveryMethod: 'fastest'
     }
@@ -51,7 +51,8 @@ class ContactData extends Component {
           <input type="text" name="name" placeholder="Name" />
           <input type="email" name="email" placeholder="Email" />
           <input type="text" name="street" placeholder="Street" />
-          <input type="text" name="postalCode" placeholder="Postal Code" />
+          <input type="text" name="zipcode" placeholder="Zipcode" />
+          <input type="text" name="country" placeholder="Country" />
           <Button buttonType="Success" clicked={this.orderHandler}>ORDER</Button>
         </form>
       </div>
@@ -60,7 +61,8 @@ class ContactData extends Component {
 }
 
 ContactData.propTypes = {
-  ingredients: PropTypes.object.isRequired
+  ingredients: PropTypes.object.isRequired,
+  price: PropTypes.number.isRequired
 }
 
 export default ContactData;
