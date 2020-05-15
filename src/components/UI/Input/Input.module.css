@@ -36,3 +36,8 @@
   border: 1px solid red;
   background-color: #ffebea;
 }
+
+.ValidationError {
+  color: red;
+  margin: 5px 0;
+}

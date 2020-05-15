@@ -49,10 +49,19 @@ const Input = (props) => {
         onChange={props.changed} />
   }
 
+  let validationError = null;
+  if (props.invalid && props.touched) {
+    validationError =
+      <p className={styles.ValidationError}>
+        Please enter a valid {props.valueType}!
+      </p>;
+  }
+
   return (
     <div className={styles.Input}>
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
+      {validationError}
     </div>
   );
 };
@@ -65,7 +74,8 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   changed: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
-  shouldValidate: PropTypes.object
+  shouldValidate: PropTypes.object,
+  valueType: PropTypes.string
 }
 
 export default Input;
