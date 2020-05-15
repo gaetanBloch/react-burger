@@ -5,7 +5,7 @@ import styles from './Input.module.css'
 
 const Input = (props) => {
   let inputClasses = [styles.InputElement]
-  if (props.invalid && props.shouldValidate) {
+  if (props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(styles.Invalid);
   }
 
@@ -65,7 +65,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   changed: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
-  shouldValidate: PropTypes.bool.isRequired
+  shouldValidate: PropTypes.object
 }
 
 export default Input;

@@ -20,7 +20,8 @@ class ContactData extends Component {
         required: true,
         ...validationRules
       },
-      valid: false
+      valid: false,
+      touched: false
     };
   };
 
@@ -91,7 +92,7 @@ class ContactData extends Component {
     updatedFormElement.value = event.target.value;
     updatedFormElement.valid =
       this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-    console.log(updatedFormElement);
+    updatedFormElement.touched = true;
     updatedOrderForm[inputId] = updatedFormElement;
     this.setState({orderForm: updatedOrderForm});
   }
@@ -115,6 +116,7 @@ class ContactData extends Component {
             value={input.config.value}
             invalid={!input.config.valid}
             shouldValidate={input.config.validation}
+            touched={input.config.touched}
             changed={(event) => this.inputChangedHandler(event, input.id)} />
         ))}
         <Button buttonType="Success">ORDER</Button>

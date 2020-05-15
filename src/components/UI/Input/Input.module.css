@@ -27,7 +27,12 @@
   background-color: #eeeeee;
 }
 
+.InputElement:focus.Invalid {
+  outline: none;
+  background-color: #ffd6d2;
+}
+
 .Invalid {
   border: 1px solid red;
-  background-color: #ffd6d2;
+  background-color: #ffebea;
 }
