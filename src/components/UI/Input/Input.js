@@ -7,13 +7,13 @@ const Input = (props) => {
   let inputElement = null;
   switch (props.inputElement) {
     case 'input':
-      inputElement = <input id={props.id} {...props} />
+      inputElement = <input id={props.id} className={styles.InputElement} {...props} />
       break;
     case 'textarea':
-      inputElement = <textarea id={props.id} {...props} />
+      inputElement = <textarea id={props.id} className={styles.InputElement} {...props} />
       break;
     default:
-      inputElement = <input id={props.id} {...props} />
+      inputElement = <input id={props.id} className={styles.InputElement} {...props} />
   }
 
   return (
