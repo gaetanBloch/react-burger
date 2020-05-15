@@ -19,6 +19,7 @@
   border-radius: 3px;
   display: block;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .InputElement:focus {

@@ -5,7 +5,7 @@ import styles from './Input.module.css'
 
 const Input = (props) => {
   let inputElement = null;
-  switch (props.inputElement) {
+  switch (props.inputelment) {
     case 'input':
       inputElement = <input id={props.id} className={styles.InputElement} {...props} />
       break;
@@ -25,9 +25,9 @@ const Input = (props) => {
 };
 
 Input.propTypes = {
-  label: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  inputElement: PropTypes.string
+  label: PropTypes.string,
+  id: PropTypes.string,
+  inputelment: PropTypes.string
 }
 
 export default Input;
