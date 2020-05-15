@@ -8,13 +8,34 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
+  initializeFormElement = (placeholder, type = 'text') => {
+    return {
+      elementType: 'input',
+      elementConfig: {
+        type: type,
+        placeholder: placeholder
+      },
+      value: ''
+    };
+  };
+
   state = {
-    name: '',
-    email: '',
-    address: {
-      street: '',
-      zipCode: '',
-      country: ''
+    orderForm: {
+      name: this.initializeFormElement('Your Name'),
+      email: this.initializeFormElement('Your E-Mail', 'email'),
+      street: this.initializeFormElement('Street'),
+      zipCode: this.initializeFormElement('ZIP Code'),
+      country: this.initializeFormElement('Country'),
+      deliveryMethod: {
+        elementType: 'select',
+        elementConfig: {
+          options: [
+            {value: 'fastest', displayValue: 'Fastest'},
+            {value: 'cheapest', displayValue: 'Cheapest'},
+          ]
+        },
+        value: ''
+      },
     },
     loading: false
   };
@@ -51,7 +72,7 @@ class ContactData extends Component {
   render() {
     let form = (
       <form>
-        <Input type="text" placeholder="Your Name" />
+        <Input elementType="..." elementConfig="..." value="..." />
         <Input type="email" placeholder="Your Email" />
         <Input type="text" placeholder="Your Street" />
         <Input type="text" placeholder="Your Zipcode" />

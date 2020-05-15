@@ -4,16 +4,28 @@ import PropTypes from 'prop-types';
 import styles from './Input.module.css'
 
 const Input = (props) => {
-  let inputElement = null;
-  switch (props.inputelment) {
+  let inputElement;
+  switch (props.elementType) {
     case 'input':
-      inputElement = <input id={props.id} className={styles.InputElement} {...props} />
+      inputElement = <input
+        id={props.id}
+        className={styles.InputElement}
+        {...props.elementConfig}
+        value={props.value} />
       break;
     case 'textarea':
-      inputElement = <textarea id={props.id} className={styles.InputElement} {...props} />
+      inputElement = <textarea
+        id={props.id}
+        className={styles.InputElement}
+        {...props.elementConfig}
+        value={props.value} />
       break;
     default:
-      inputElement = <input id={props.id} className={styles.InputElement} {...props} />
+      inputElement = <input
+        id={props.id}
+        className={styles.InputElement}
+        {...props.elementConfig}
+        value={props.value} />
   }
 
   return (
@@ -27,7 +39,9 @@ const Input = (props) => {
 Input.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
-  inputelment: PropTypes.string
+  elementType: PropTypes.string,
+  elementConfig: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired
 }
 
 export default Input;
