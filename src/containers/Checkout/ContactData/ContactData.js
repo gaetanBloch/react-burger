@@ -70,16 +70,27 @@ class ContactData extends Component {
   };
 
   render() {
+    const inputs = [];
+    Object.keys(this.state.orderForm).forEach(key => {
+      inputs.push({
+        id: key,
+        config: this.state.orderForm[key]
+      })
+    });
+
     let form = (
       <form>
-        <Input elementType="..." elementConfig="..." value="..." />
-        <Input type="email" placeholder="Your Email" />
-        <Input type="text" placeholder="Your Street" />
-        <Input type="text" placeholder="Your Zipcode" />
-        <Input type="text" placeholder="Your Country" />
+        {inputs.map(input => (
+          <Input
+            key={input.id}
+            elementType={input.config.elementType}
+            elementConfig={input.config.elementConfig}
+            value={input.config.value} />
+        ))}
         <Button buttonType="Success" clicked={this.orderHandler}>ORDER</Button>
       </form>
     );
+
     if (this.state.loading) {
       form = <Spinner />;
     }
