@@ -43,7 +43,8 @@ class ContactData extends Component {
         value: 'fastest'
       },
     },
-    loading: false
+    loading: false,
+    formIsValid: false
   };
 
   checkValidity(value, rules) {
@@ -94,7 +95,14 @@ class ContactData extends Component {
       this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
     updatedFormElement.touched = true;
     updatedOrderForm[inputId] = updatedFormElement;
-    this.setState({orderForm: updatedOrderForm});
+
+    // Check for all inputs validity
+    let formIsValid = true
+    Object.keys(updatedOrderForm).forEach(inputId => {
+      formIsValid = updatedOrderForm[inputId].valid && formIsValid;
+    });
+
+    this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
   }
 
   render() {
