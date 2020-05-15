@@ -12,7 +12,8 @@ class ContactData extends Component {
     email: '',
     address: {
       street: '',
-      postalCode: ''
+      zipCode: '',
+      country: ''
     },
     loading: false
   };
