@@ -15,7 +15,11 @@ class ContactData extends Component {
         type: type,
         placeholder: placeholder
       },
-      value: ''
+      value: '',
+      validation: {
+        required: true
+      },
+      valid: false
     };
   };
 
@@ -39,6 +43,14 @@ class ContactData extends Component {
     },
     loading: false
   };
+
+  checkValidity(value, rules) {
+    let isValid = false;
+    if (rules.required) {
+      isValid = value !== null && value !== undefined && value.trim() !== '';
+    }
+    return isValid;
+  }
 
   orderHandler = async (event) => {
     event.preventDefault();
@@ -70,6 +82,8 @@ class ContactData extends Component {
     const updatedOrderForm = {...this.state.orderForm}
     const updatedFormElement = {...updatedOrderForm[inputId]}
     updatedFormElement.value = event.target.value;
+    updatedFormElement.valid =
+      this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
     updatedOrderForm[inputId] = updatedFormElement;
     this.setState({orderForm: updatedOrderForm});
   }
