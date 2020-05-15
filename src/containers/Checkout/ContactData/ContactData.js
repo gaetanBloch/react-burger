@@ -8,13 +8,17 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
-  initializeFormElement = (placeholder, validationRules = null, type = 'text') => {
+  initializeFormElement = (placeholder,
+                           valueType,
+                           validationRules = null,
+                           type = 'text') => {
     return {
       elementType: 'input',
       elementConfig: {
         type: type,
         placeholder: placeholder
       },
+      valueType: valueType,
       value: '',
       validation: {
         required: true,
@@ -27,11 +31,11 @@ class ContactData extends Component {
 
   state = {
     orderForm: {
-      name: this.initializeFormElement('Your Name'),
-      email: this.initializeFormElement('Your E-Mail', null, 'email'),
-      street: this.initializeFormElement('Street'),
-      zipCode: this.initializeFormElement('ZIP Code', {minLength: 5, maxLength: 5}),
-      country: this.initializeFormElement('Country'),
+      name: this.initializeFormElement('Your Name', 'name'),
+      email: this.initializeFormElement('Your E-Mail', 'e-mail address', null, 'email'),
+      street: this.initializeFormElement('Street', 'street name'),
+      zipCode: this.initializeFormElement('ZIP Code', 'ZIP code', {minLength: 5, maxLength: 5}),
+      country: this.initializeFormElement('Country', 'country name'),
       deliveryMethod: {
         elementType: 'select',
         elementConfig: {
@@ -127,6 +131,7 @@ class ContactData extends Component {
             invalid={!input.config.valid}
             shouldValidate={input.config.validation}
             touched={input.config.touched}
+            valueType={input.config.valueType}
             changed={(event) => this.inputChangedHandler(event, input.id)} />
         ))}
         <Button buttonType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
