@@ -39,8 +39,7 @@ class ContactData extends Component {
     }
 
     try {
-      const response = await axios.post('/orders.json', order);
-      console.log(response);
+      await axios.post('/orders.json', order);
     } catch (error) {
       console.log(error);
     } finally {
