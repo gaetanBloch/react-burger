@@ -34,7 +34,7 @@ class ContactData extends Component {
             {value: 'cheapest', displayValue: 'Cheapest'},
           ]
         },
-        value: ''
+        value: 'fastest'
       },
     },
     loading: false
@@ -44,19 +44,16 @@ class ContactData extends Component {
     event.preventDefault();
 
     this.setState({loading: true});
+
+    const formData = {}
+    Object.keys(this.state.orderForm).forEach(formElementKey => {
+      formData[formElementKey] = this.state.orderForm[formElementKey].value;
+    })
+
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      customer: {
-        name: 'Gaëtan Bloch',
-        email: 'gaetan.bloch@gmail.com',
-        address: {
-          street: 'Nantes street',
-          zipCode: '44300',
-          country: 'France'
-        }
-      },
-      deliveryMethod: 'fastest'
+      orderData: formData
     }
 
     try {
@@ -87,7 +84,7 @@ class ContactData extends Component {
     });
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {inputs.map(input => (
           <Input
             key={input.id}
@@ -96,7 +93,7 @@ class ContactData extends Component {
             value={input.config.value}
             changed={(event) => this.inputChangedHandler(event, input.id)} />
         ))}
-        <Button buttonType="Success" clicked={this.orderHandler}>ORDER</Button>
+        <Button buttonType="Success">ORDER</Button>
       </form>
     );
 
