@@ -15,6 +15,15 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+.Button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.Button:disabled:hover {
+  background-color: transparent;
+}
+
 .Success {
   color: #5C9210;
 }
