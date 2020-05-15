@@ -69,6 +69,10 @@ class ContactData extends Component {
     }
   };
 
+  inputChangedHandler = (event) => {
+    
+  }
+
   render() {
     const inputs = [];
     Object.keys(this.state.orderForm).forEach(key => {
@@ -85,7 +89,8 @@ class ContactData extends Component {
             key={input.id}
             elementType={input.config.elementType}
             elementConfig={input.config.elementConfig}
-            value={input.config.value} />
+            value={input.config.value}
+            changed={this.inputChangedHandler} />
         ))}
         <Button buttonType="Success" clicked={this.orderHandler}>ORDER</Button>
       </form>
