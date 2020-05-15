@@ -8,7 +8,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
-  initializeFormElement = (placeholder, type = 'text') => {
+  initializeFormElement = (placeholder, validationRules = null, type = 'text') => {
     return {
       elementType: 'input',
       elementConfig: {
@@ -17,7 +17,8 @@ class ContactData extends Component {
       },
       value: '',
       validation: {
-        required: true
+        required: true,
+        ...validationRules
       },
       valid: false
     };
@@ -26,9 +27,9 @@ class ContactData extends Component {
   state = {
     orderForm: {
       name: this.initializeFormElement('Your Name'),
-      email: this.initializeFormElement('Your E-Mail', 'email'),
+      email: this.initializeFormElement('Your E-Mail', null, 'email'),
       street: this.initializeFormElement('Street'),
-      zipCode: this.initializeFormElement('ZIP Code'),
+      zipCode: this.initializeFormElement('ZIP Code', {minLength: 5, maxLength: 5}),
       country: this.initializeFormElement('Country'),
       deliveryMethod: {
         elementType: 'select',
@@ -48,6 +49,12 @@ class ContactData extends Component {
     let isValid = false;
     if (rules.required) {
       isValid = value !== null && value !== undefined && value.trim() !== '';
+    }
+    if (rules.minLength) {
+      isValid = value >= rules.minLength;
+    }
+    if (rules.maxLength) {
+      isValid = value <= rules.maxLength;
     }
     return isValid;
   }
@@ -84,6 +91,7 @@ class ContactData extends Component {
     updatedFormElement.value = event.target.value;
     updatedFormElement.valid =
       this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    console.log(updatedFormElement);
     updatedOrderForm[inputId] = updatedFormElement;
     this.setState({orderForm: updatedOrderForm});
   }
