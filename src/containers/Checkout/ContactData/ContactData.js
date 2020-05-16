@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from '../../../axios-orders'
 import { connect } from 'react-redux';
 
-
 import styles from './ContactData.module.css'
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -33,7 +32,7 @@ class ContactData extends Component {
   state = {
     orderForm: {
       name: this.initializeFormElement('Your Name', 'name'),
-      email: this.initializeFormElement('Your E-Mail', 'e-mail address', null, 'email'),
+      email: this.initializeFormElement('Your E-Mail', 'e-mail address', {isEmail: true}, 'email'),
       street: this.initializeFormElement('Street', 'street name'),
       zipCode: this.initializeFormElement('ZIP Code', 'ZIP code', {minLength: 5, maxLength: 5}),
       country: this.initializeFormElement('Country', 'country name'),
@@ -64,6 +63,10 @@ class ContactData extends Component {
     }
     if (rules.maxLength) {
       isValid = value != null && value.length <= rules.maxLength && isValid;
+    }
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid
     }
     return isValid;
   }
