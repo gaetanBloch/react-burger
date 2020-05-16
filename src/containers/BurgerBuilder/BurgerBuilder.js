@@ -9,7 +9,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as ActionTypes from '../../store/actions/actionTypes'
+import * as actionCreators from '../../store/actions/index'
 
 const INGREDIENT_PRICES = {
   alad: 0.5,
@@ -127,12 +127,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingredientType) => dispatch(
-      {type: ActionTypes.ADD_INGREDIENT, ingredientType: ingredientType}
-    ),
-    onIngredientRemoved: (ingredientType) => dispatch(
-      {type: ActionTypes.REMOVE_INGREDIENT, ingredientType: ingredientType}
-    )
+    onIngredientAdded: (ingredientType) => dispatch(actionCreators.addIngredient(ingredientType)),
+    onIngredientRemoved: (ingredientType) => dispatch(actionCreators.removeIngredient(ingredientType))
   }
 }
 
