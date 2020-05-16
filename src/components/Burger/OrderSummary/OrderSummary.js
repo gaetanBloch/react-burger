@@ -9,7 +9,7 @@ const OrderSummary = (props) => {
       return (
         <li key={key}>
           <span style={{textTransform: 'capitalize'}}>
-            {key === 'alad' ? 'salad' : key}
+            {key}
           </span>: {props.ingredients[key]}
         </li>
       );

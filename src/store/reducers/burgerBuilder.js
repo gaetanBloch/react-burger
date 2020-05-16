@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const INGREDIENT_PRICES = {
-  alad: 0.5,
+  salad: 0.5,
   bacon: 1,
   cheese: 1,
   meat: 2
@@ -50,7 +50,12 @@ const burgerBuilder = (state = initialState, action) => {
 
       return {
         ...state,
-        ingredients: action.ingredients,
+        ingredients: {
+          salad: action.ingredients.salad,
+          bacon: action.ingredients.bacon,
+          cheese: action.ingredients.cheese,
+          meat: action.ingredients.meat,
+        },
         totalPrice: calculateInitialPrice(action.ingredients),
         error: false
       };

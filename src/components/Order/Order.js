@@ -7,7 +7,7 @@ const Order = (props) => {
     const ingredients = [];
     Object.keys(props.ingredients).forEach(ingredientName => {
       ingredients.push({
-        name: ingredientName === 'alad' ? 'salad' : ingredientName,
+        name: ingredientName,
         amount: props.ingredients[ingredientName]
       });
     });
