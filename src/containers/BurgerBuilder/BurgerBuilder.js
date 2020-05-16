@@ -16,6 +16,10 @@ class BurgerBuilder extends Component {
     purchasing: false
   }
 
+  componentDidMount() {
+    this.props.onInitIngredients();
+  }
+
   isPurchasable = () => {
     // let sumIngredients = 0;
     // Object.keys(ingredients).forEach(key => {
@@ -49,7 +53,7 @@ class BurgerBuilder extends Component {
     let orderSummary = null;
     let burger;
 
-    if (this.state.error) {
+    if (this.props.error) {
       burger = <p style={{textAlign: 'center'}}>Ingredients can't be loaded!</p>
     } else {
       burger = <Spinner />;
@@ -88,14 +92,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    totalPrice: state.totalPrice,
+    error: state.error
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: (ingredientType) => dispatch(actionCreators.addIngredient(ingredientType)),
-    onIngredientRemoved: (ingredientType) => dispatch(actionCreators.removeIngredient(ingredientType))
+    onIngredientRemoved: (ingredientType) => dispatch(actionCreators.removeIngredient(ingredientType)),
+    onInitIngredients: () => dispatch(actionCreators.initIngredients())
   }
 }
 

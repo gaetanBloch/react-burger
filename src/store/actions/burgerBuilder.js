@@ -1,14 +1,6 @@
 import axios from '../../axios-orders';
 import * as actionTypes from './actionTypes';
 
-const INGREDIENT_PRICES = {
-  alad: 0.5,
-  bacon: 1,
-  cheese: 1,
-  meat: 2
-}
-
-const INITIAL_BURGER_PRICE = 2
 
 export const addIngredient = (type) => {
   return {
@@ -32,25 +24,17 @@ const fetchIngredientsFailed = () => {
   }
 }
 
-const setIngredients = (ingredients, totalPrice) => {
+const setIngredients = (ingredients) => {
   return {
     type: actionTypes.INIT_INGREDIENTS,
-    ingredients: ingredients,
-    totalPrice: totalPrice
+    ingredients: ingredients
   }
-}
-
-const calculateInitialPrice = (ingredients) => {
-  const totalPrice = Object.keys(ingredients)
-    .map(key => ingredients[key] * INGREDIENT_PRICES[key])
-    .reduce((sum, price) => sum + price);
-  return INITIAL_BURGER_PRICE + totalPrice;
 }
 
 const getIngredients = async (dispatch) => {
   try {
     const response = await axios.get('/ingredients.json');
-    dispatch(setIngredients(response.data, calculateInitialPrice(response.data)))
+    dispatch(setIngredients(response.data));
   } catch (error) {
     dispatch(fetchIngredientsFailed());
   }
