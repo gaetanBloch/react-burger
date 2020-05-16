@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../axios-orders'
+import { connect } from 'react-redux';
 
 import Aux from '../../hoc/ReactAux/ReactAux';
 import Burger from '../../components/Burger/Burger';
@@ -8,6 +9,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import * as ActionTypes from '../../store/actions'
 
 const INGREDIENT_PRICES = {
   alad: 0.5,
@@ -20,7 +22,6 @@ const INITIAL_PRICE = 2;
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
     totalPrice: 0,
     purchasable: false,
     purchasing: false,
@@ -28,7 +29,7 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
-    this.getIngredients();
+    // this.getIngredients();
   }
 
   getIngredients = async () => {
@@ -124,17 +125,17 @@ class BurgerBuilder extends Component {
 
   buildQueryParams = () => {
     // let result = '?';
-    // result += Object.keys(this.state.ingredients)
+    // result += Object.keys(this.props.ingredients)
     //   .map(key => {
-    //     return encodeURIComponent(key) + '=' + encodeURIComponent(this.state.ingredients[key]);
+    //     return encodeURIComponent(key) + '=' + encodeURIComponent(this.props.ingredients[key]);
     //   })
     //   .reduce((params, keyValue) => params + keyValue + '&', '');
     // result = result.substring(0, result.length - 1);
     // return result;
     const queryParams = [];
-    Object.keys(this.state.ingredients).forEach((key) => {
+    Object.keys(this.props.ingredients).forEach((key) => {
       queryParams.push(
-        encodeURIComponent(key) + '=' + encodeURIComponent(this.state.ingredients[key])
+        encodeURIComponent(key) + '=' + encodeURIComponent(this.props.ingredients[key])
       );
     });
     queryParams.push('price=' + this.state.totalPrice);
@@ -142,7 +143,7 @@ class BurgerBuilder extends Component {
   }
 
   render() {
-    const disabledInfo = {...this.state.ingredients};
+    const disabledInfo = {...this.props.ingredients};
     Object.keys(disabledInfo).forEach(key => {
       disabledInfo[key] = disabledInfo[key] <= 0;
     });
@@ -156,20 +157,20 @@ class BurgerBuilder extends Component {
       burger = <Spinner />;
     }
 
-    if (this.state.ingredients) {
+    if (this.props.ingredients) {
       burger = <Aux>
-        <Burger ingredients={this.state.ingredients} />
+        <Burger ingredients={this.props.ingredients} />
         <BuildControls
           price={this.state.totalPrice}
           purchasable={this.state.purchasable}
-          ingredientAdded={this.addIngredientHandler}
-          ingredientRemoved={this.removeIngredient}
+          ingredientAdded={this.props.onIngredientAdded}
+          ingredientRemoved={this.props.onIngredientRemoved}
           ordered={this.purchaseHandler}
           disabled={disabledInfo} />
       </Aux>;
 
       orderSummary = <OrderSummary
-        ingredients={this.state.ingredients}
+        ingredients={this.props.ingredients}
         price={this.state.totalPrice}
         purchaseCancelled={this.purchaseCancelHandler}
         purchaseContinued={this.purchaseContinueHandler} />;
@@ -186,4 +187,22 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients,
+    totalPrice: state.totalPrice
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onIngredientAdded: (ingredientType) => dispatch(
+      {type: ActionTypes.ADD_INGREDIENT, ingredientType: ingredientType}
+    ),
+    onIngredientRemoved: (ingredientType) => dispatch(
+      {type: ActionTypes.REMOVE_INGREDIENT, ingredientType: ingredientType}
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
