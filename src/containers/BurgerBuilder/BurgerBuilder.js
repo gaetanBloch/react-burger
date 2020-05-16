@@ -22,8 +22,6 @@ const INITIAL_PRICE = 2;
 
 class BurgerBuilder extends Component {
   state = {
-    totalPrice: 0,
-    purchasable: false,
     purchasing: false,
     error: false
   }
@@ -51,61 +49,16 @@ class BurgerBuilder extends Component {
     return INITIAL_PRICE + totalPrice;
   }
 
-  addIngredientHandler = (type) => {
-    // Update the count
-    const oldCount = this.state.ingredients[type];
-    const updatedCount = oldCount + 1;
-    const updatedIngredients = {...this.state.ingredients};
-    updatedIngredients[type] = updatedCount;
-
-    // Calculate the price
-    const oldPrice = this.state.totalPrice;
-    const priceAddition = INGREDIENT_PRICES[type];
-    const newPrice = oldPrice + priceAddition;
-
-    this.setState({
-        ingredients: updatedIngredients,
-        totalPrice: newPrice
-      }
-    );
-
-    this.updatePurchaseState(updatedIngredients);
-  };
-
-  removeIngredient = (type) => {
-    const oldCount = this.state.ingredients[type];
-
-    if (oldCount > 0) {
-      // Update the count
-      const updatedCount = oldCount - 1;
-      const updatedIngredients = {...this.state.ingredients};
-      updatedIngredients[type] = updatedCount;
-
-      // Update the price
-      const oldPrice = this.state.totalPrice;
-      const priceDeduction = INGREDIENT_PRICES[type];
-      const newPrice = oldPrice - priceDeduction;
-
-      this.setState({
-          ingredients: updatedIngredients,
-          totalPrice: newPrice
-        }
-      );
-
-      this.updatePurchaseState(updatedIngredients);
-    }
-  }
-
-  updatePurchaseState = (ingredients) => {
+  isPurchasable = () => {
     // let sumIngredients = 0;
     // Object.keys(ingredients).forEach(key => {
     //   sumIngredients += ingredients[key];
     // })
-    const sumIngredients = Object.keys(ingredients)
-      .map(key => ingredients[key])
+    const sumIngredients = Object.keys(this.props.ingredients)
+      .map(key => this.props.ingredients[key])
       .reduce((sum, element) => sum + element, 0);
 
-    this.setState({purchasable: sumIngredients > 0});
+    return sumIngredients > 0;
   };
 
   purchaseHandler = () => {
@@ -162,7 +115,7 @@ class BurgerBuilder extends Component {
         <Burger ingredients={this.props.ingredients} />
         <BuildControls
           price={this.props.totalPrice}
-          purchasable={this.state.purchasable}
+          purchasable={this.isPurchasable()}
           ingredientAdded={this.props.onIngredientAdded}
           ingredientRemoved={this.props.onIngredientRemoved}
           ordered={this.purchaseHandler}
