@@ -31,11 +31,29 @@ class ContactData extends Component {
 
   state = {
     orderForm: {
-      name: this.initializeFormElement('Your Name', 'name'),
-      email: this.initializeFormElement('Your E-Mail', 'e-mail address', {isEmail: true}, 'email'),
-      street: this.initializeFormElement('Street', 'street name'),
-      zipCode: this.initializeFormElement('ZIP Code', 'ZIP code', {minLength: 5, maxLength: 5}),
-      country: this.initializeFormElement('Country', 'country name'),
+      name: this.initializeFormElement(
+        'Your Name',
+        'name'
+      ),
+      email: this.initializeFormElement(
+        'Your E-Mail',
+        'e-mail address',
+        {isEmail: true},
+        'email'
+      ),
+      street: this.initializeFormElement(
+        'Street',
+        'street name'
+      ),
+      zipCode: this.initializeFormElement(
+        'ZIP Code',
+        'ZIP code',
+        {minLength: 5, maxLength: 5, isNumeric: true}
+      ),
+      country: this.initializeFormElement(
+        'Country',
+        'country name'
+      ),
       deliveryMethod: {
         elementType: 'select',
         elementConfig: {
@@ -66,6 +84,10 @@ class ContactData extends Component {
     }
     if (rules.isEmail) {
       const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid
+    }
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
       isValid = pattern.test(value) && isValid
     }
     return isValid;
