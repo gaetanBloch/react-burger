@@ -8,13 +8,9 @@ const INGREDIENT_PRICES = {
 }
 
 const initialState = {
-  ingredients: {
-    alad: 0,
-    bacon: 0,
-    cheese: 0,
-    meat: 0
-  },
-  totalPrice: 2
+  ingredients: null,
+  totalPrice: 0,
+  error: false
 }
 
 const burgerBuilder = (state = initialState, action) => {

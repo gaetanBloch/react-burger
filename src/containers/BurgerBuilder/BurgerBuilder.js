@@ -11,42 +11,9 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actionCreators from '../../store/actions/index'
 
-const INGREDIENT_PRICES = {
-  alad: 0.5,
-  bacon: 1,
-  cheese: 1,
-  meat: 2
-}
-
-const INITIAL_PRICE = 2;
-
 class BurgerBuilder extends Component {
   state = {
-    purchasing: false,
-    error: false
-  }
-
-  componentDidMount() {
-    // this.getIngredients();
-  }
-
-  getIngredients = async () => {
-    try {
-      const response = await axios.get('/ingredients.json');
-      this.setState({
-        ingredients: response.data,
-        totalPrice: this.calculateInitialPrice(response.data)
-      });
-    } catch (error) {
-      this.setState({error: true})
-    }
-  }
-
-  calculateInitialPrice = (ingredients) => {
-    const totalPrice = Object.keys(ingredients)
-      .map(key => ingredients[key] * INGREDIENT_PRICES[key])
-      .reduce((sum, price) => sum + price);
-    return INITIAL_PRICE + totalPrice;
+    purchasing: false
   }
 
   isPurchasable = () => {
