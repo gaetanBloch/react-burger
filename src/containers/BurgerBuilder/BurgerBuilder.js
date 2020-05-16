@@ -138,7 +138,7 @@ class BurgerBuilder extends Component {
         encodeURIComponent(key) + '=' + encodeURIComponent(this.props.ingredients[key])
       );
     });
-    queryParams.push('price=' + this.state.totalPrice);
+    queryParams.push('price=' + this.props.totalPrice);
     return '?' + queryParams.join('&');
   }
 
@@ -161,7 +161,7 @@ class BurgerBuilder extends Component {
       burger = <Aux>
         <Burger ingredients={this.props.ingredients} />
         <BuildControls
-          price={this.state.totalPrice}
+          price={this.props.totalPrice}
           purchasable={this.state.purchasable}
           ingredientAdded={this.props.onIngredientAdded}
           ingredientRemoved={this.props.onIngredientRemoved}
@@ -171,7 +171,7 @@ class BurgerBuilder extends Component {
 
       orderSummary = <OrderSummary
         ingredients={this.props.ingredients}
-        price={this.state.totalPrice}
+        price={this.props.totalPrice}
         purchaseCancelled={this.purchaseCancelHandler}
         purchaseContinued={this.purchaseContinueHandler} />;
     }
