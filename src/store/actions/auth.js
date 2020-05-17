@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+const BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:';
 const API_KEY = 'AIzaSyCv1I87seMOrUkt2qmRkdRrnd6a4_u_4mA';
 
 const authSuccess = (authData) => {
@@ -23,7 +24,7 @@ const authStart = () => {
   };
 };
 
-const doAuth = async (dispatch, email, password) => {
+const doAuth = async (dispatch, email, password, urlComplement) => {
   const payload = {
     email: email,
     password: password,
@@ -31,8 +32,7 @@ const doAuth = async (dispatch, email, password) => {
   };
   try {
     const response = await axios.post(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
-      API_KEY,
+      `${BASE_URL}${urlComplement}?key=${API_KEY}`,
       payload
     );
     console.log(response);
@@ -43,9 +43,17 @@ const doAuth = async (dispatch, email, password) => {
   }
 };
 
-export const auth = (email, password) => {
+const dispatchAuth = (email, password, urlComplement) => {
   return dispatch => {
     dispatch(authStart());
-    doAuth(dispatch, email, password);
+    doAuth(dispatch, email, password, urlComplement);
   };
+};
+
+export const signIn = (email, password) => {
+  return dispatchAuth(email, password, 'signInWithPassword');
+};
+
+export const signUp = (email, password) => {
+  return dispatchAuth(email, password, 'signUp');
 };

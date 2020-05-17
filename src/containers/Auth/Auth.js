@@ -24,6 +24,7 @@ export class Auth extends Component {
       ),
     },
     formIsValid: false,
+    signInMode: true
   };
 
   inputChangedHandler = (event, inputId) => {
@@ -34,10 +35,23 @@ export class Auth extends Component {
     // Prevent reloading of the page
     event.preventDefault();
 
-    this.props.onAuth(
-      this.state.controls.email.value,
-      this.state.controls.password.value
-    );
+    if (this.state.signInMode) {
+      this.props.onSignIn(
+        this.state.controls.email.value,
+        this.state.controls.password.value
+      );
+    } else {
+      this.props.onSignUp(
+        this.state.controls.email.value,
+        this.state.controls.password.value
+      );
+    }
+  };
+
+  switchAuthModeHandler = () => {
+    this.setState(prevState => ({
+      signInMode: !prevState.signInMode
+    }));
   };
 
   render () {
@@ -64,15 +78,18 @@ export class Auth extends Component {
             changed={(event) => this.inputChangedHandler(event, input.id)} />
         ))}
         <Button buttonType="Success" disabled={!this.state.formIsValid}>
-          SUBMIT
+          {this.state.signInMode ? 'SIGN IN' : 'SIGN UP'}
         </Button>
       </form>
     );
 
     return (
       <div className={styles.Auth}>
-        <h1>Authenticate</h1>
+        <h1>{this.state.signInMode ? 'Sign in' : 'Sign up'}</h1>
         {form}
+        <Button buttonType="Danger" clicked={this.switchAuthModeHandler}>
+          SWITCH TO {this.state.signInMode ? 'SIGN UP' : 'SIGN IN'}
+        </Button>
       </div>
     );
   }
@@ -80,7 +97,8 @@ export class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password) => dispatch(actions.auth(email, password))
+    onSignIn: (email, password) => dispatch(actions.signIn(email, password)),
+    onSignUp: (email, password) => dispatch(actions.signUp(email, password))
   };
 };
 
