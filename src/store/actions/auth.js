@@ -3,20 +3,20 @@ import * as actionTypes from './actionTypes';
 const authSuccess = (authData) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData: authData,
+    authData: authData
   };
 };
 
 const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
-    error: error,
+    error: error
   };
 };
 
 const authStart = () => {
   return {
-    type: actionTypes.AUTH_START,
+    type: actionTypes.AUTH_START
   };
 };
 

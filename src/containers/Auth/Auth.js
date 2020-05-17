@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { handleChangedForm, initializeFormElement } from '../formUtils';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import styles from './Auth.module.css';
+import * as actions from '../../store/actions/index';
 
 export class Auth extends Component {
   state = {
@@ -28,6 +30,16 @@ export class Auth extends Component {
     handleChangedForm(event, inputId, 'controls', this);
   };
 
+  submitHandler = (event) => {
+    // Prevent reloading of the page
+    event.preventDefault();
+
+    this.props.onAuth(
+      this.state.controls.email.value,
+      this.state.controls.password.value
+    );
+  };
+
   render () {
     const inputs = [];
     Object.keys(this.state.controls).forEach(key => {
@@ -38,7 +50,7 @@ export class Auth extends Component {
     });
 
     let form = (
-      <form>
+      <form onSubmit={this.submitHandler}>
         {inputs.map(input => (
           <Input
             key={input.id}
@@ -66,4 +78,10 @@ export class Auth extends Component {
   }
 }
 
-export default Auth;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: dispatch((email, password) => actions.auth(email, password))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Auth);

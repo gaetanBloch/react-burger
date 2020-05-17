@@ -14,8 +14,8 @@ const purchaseBurgerSuccess = (orderId, orderData) => {
 const purchaseBurgerFail = () => {
   return {
     type: actionTypes.PURCHASE_BURGER_FAIL
-  }
-}
+  };
+};
 
 const postOrder = async (dispatch, orderData) => {
   try {
@@ -24,26 +24,26 @@ const postOrder = async (dispatch, orderData) => {
   } catch (error) {
     dispatch(purchaseBurgerFail());
   }
-}
+};
 
 const purchaseBurgerStart = () => {
   return {
     type: actionTypes.PURCHASE_BURGER_START
-  }
-}
+  };
+};
 
 export const purchaseBurger = (orderData) => {
   return dispatch => {
     dispatch(purchaseBurgerStart());
     postOrder(dispatch, orderData);
-  }
-}
+  };
+};
 
 export const purchaseInit = () => {
   return {
     type: actionTypes.PURCHASE_INIT
-  }
-}
+  };
+};
 
 /* ******** FETCH ORDERS ******* */
 
@@ -51,14 +51,14 @@ const fetchOrdersSuccess = (orders) => {
   return {
     type: actionTypes.FETCH_ORDERS_SUCCESS,
     orders: orders
-  }
-}
+  };
+};
 
 const fetchOrdersFail = () => {
   return {
     type: actionTypes.FETCH_ORDERS_FAIL
-  }
-}
+  };
+};
 
 const getOrders = async (dispatch) => {
   try {
@@ -69,24 +69,24 @@ const getOrders = async (dispatch) => {
         ...response.data[key],
         id: key
       });
-    })
+    });
     dispatch(fetchOrdersSuccess(fetchedOrders));
   } catch (error) {
     dispatch(fetchOrdersFail());
   }
-}
+};
 
 const fetchOrdersStart = () => {
   return {
     type: actionTypes.FETCH_ORDERS_START
-  }
-}
+  };
+};
 
 export const fetchOrders = () => {
   return dispatch => {
     dispatch(fetchOrdersStart());
     getOrders(dispatch);
-  }
-}
+  };
+};
 
 
