@@ -6,6 +6,8 @@ import styles from './ContactData.module.css'
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
   initializeFormElement = (placeholder,
@@ -110,14 +112,7 @@ class ContactData extends Component {
       orderData: formData
     }
 
-    try {
-      await axios.post('/orders.json', order);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({loading: false});
-      this.props.history.push('/');
-    }
+    this.props.onOrderBurger(order);
   };
 
   inputChangedHandler = (event, inputId) => {
@@ -181,8 +176,15 @@ class ContactData extends Component {
 const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    totalPrice: state.totalPrice,
+
   }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: (order) => dispatch(actions.purchaseBurgerStart(order))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
