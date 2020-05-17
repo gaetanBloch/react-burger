@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import { initializeFormElement } from '../formUtils';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import styles from './Auth.module.css';
 
 export class Auth extends Component {
   state = {
@@ -44,13 +46,13 @@ export class Auth extends Component {
             valueType={input.config.valueType}
             changed={(event) => this.inputChangedHandler(event, input.id)} />
         ))}
-        <Button buttonType="Success">Login</Button>
+        <Button buttonType="Success">Submit</Button>
       </form>
     );
 
     return (
-      <div>
-        <h2>Login</h2>
+      <div className={styles.Auth}>
+        <h1>Authenticate</h1>
         {form}
       </div>
     );
