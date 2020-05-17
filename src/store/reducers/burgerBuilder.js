@@ -65,6 +65,10 @@ const fetchIngredientSuccess = (state, action) => {
   });
 };
 
+const fetchIngredientsFail = (state, action) => {
+  return updateObject(state, { error: true });
+};
+
 const burgerBuilder = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
@@ -74,7 +78,7 @@ const burgerBuilder = (state = initialState, action) => {
     case actionTypes.FETCH_INGREDIENTS_SUCCESS:
       return fetchIngredientSuccess(state, action);
     case actionTypes.FETCH_INGREDIENTS_FAIL:
-      return updateObject(state, { error: true });
+      return fetchIngredientsFail(state, action);
     default:
       return state;
   }
