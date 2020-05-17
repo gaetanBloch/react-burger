@@ -39,7 +39,7 @@ const burgerBuilder = (state = initialState, action) => {
         };
       }
       return state;
-    case actionTypes.INIT_INGREDIENTS:
+    case actionTypes.FETCH_INGREDIENTS_SUCCESS:
 
       const calculateInitialPrice = (ingredients) => {
         const totalPrice = Object.keys(ingredients)
@@ -59,7 +59,7 @@ const burgerBuilder = (state = initialState, action) => {
         totalPrice: calculateInitialPrice(action.ingredients),
         error: false
       };
-    case actionTypes.FETCH_INGREDIENTS_FAILED:
+    case actionTypes.FETCH_INGREDIENTS_FAIL:
       return {
         ...state,
         error: true

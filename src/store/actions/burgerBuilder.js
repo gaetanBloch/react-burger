@@ -1,7 +1,6 @@
 import axios from '../../axios-orders';
 import * as actionTypes from './actionTypes';
 
-
 export const addIngredient = (type) => {
   return {
     type: actionTypes.ADD_INGREDIENT,
@@ -18,15 +17,15 @@ export const removeIngredient = (type) => {
 
 /* ******** INIT INGREDIENTS ******* */
 
-const fetchIngredientsFailed = () => {
+const fetchIngredientsFail = () => {
   return {
-    type: actionTypes.FETCH_INGREDIENTS_FAILED
+    type: actionTypes.FETCH_INGREDIENTS_FAIL
   }
 }
 
-const setIngredients = (ingredients) => {
+const fetchIngredientSuccess = (ingredients) => {
   return {
-    type: actionTypes.INIT_INGREDIENTS,
+    type: actionTypes.FETCH_INGREDIENTS_SUCCESS,
     ingredients: ingredients
   }
 }
@@ -34,9 +33,9 @@ const setIngredients = (ingredients) => {
 const getIngredients = async (dispatch) => {
   try {
     const response = await axios.get('/ingredients.json');
-    dispatch(setIngredients(response.data));
+    dispatch(fetchIngredientSuccess(response.data));
   } catch (error) {
-    dispatch(fetchIngredientsFailed());
+    dispatch(fetchIngredientsFail());
   }
 }
 
