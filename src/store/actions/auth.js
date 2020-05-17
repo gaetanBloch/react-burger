@@ -38,7 +38,7 @@ const doAuth = async (dispatch, email, password) => {
     console.log(response);
     dispatch(authSuccess(response.data));
   } catch (error) {
-    console.log(error.message);
+    console.log(error.response.data.error.message);
     dispatch(authFail(error));
   }
 };
