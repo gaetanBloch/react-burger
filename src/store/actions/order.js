@@ -9,10 +9,9 @@ const purchaseBurgerSuccess = (orderId, orderData) => {
   };
 };
 
-const purchaseBurgerFail = (error) => {
+const purchaseBurgerFail = () => {
   return {
-    type: actionTypes.PURCHASE_BURGER_FAIL,
-    error: error
+    type: actionTypes.PURCHASE_BURGER_FAIL
   }
 }
 
@@ -21,7 +20,7 @@ const postOrder = async (dispatch, orderData) => {
     const response = await axios.post('/orders.json', orderData);
     dispatch(purchaseBurgerSuccess(response.data, orderData));
   } catch (error) {
-    dispatch(purchaseBurgerFail(error));
+    dispatch(purchaseBurgerFail());
   }
 }
 
