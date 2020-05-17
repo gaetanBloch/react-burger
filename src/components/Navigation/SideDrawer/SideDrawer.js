@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types'
 
 import styles from './SideDrawer.module.css'
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
-import Aux from '../../../hoc/ReactAux/ReactAux';
 
 const SideDrawer = (props) => {
   let attachedClasses = [styles.SideDrawer, styles.Close];
@@ -14,7 +13,7 @@ const SideDrawer = (props) => {
   }
 
   return (
-    <Aux>
+    <Fragment>
       <Backdrop show={props.open} clicked={props.closed} />
       <div className={attachedClasses.join(' ')}>
         <div className={styles.Logo}>
@@ -22,7 +21,7 @@ const SideDrawer = (props) => {
         </div>
         <NavigationItems />
       </div>
-    </Aux>
+    </Fragment>
   );
 };
 
