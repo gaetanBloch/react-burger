@@ -97,8 +97,9 @@ class ContactData extends Component {
             valueType={input.config.valueType}
             changed={(event) => this.inputChangedHandler(event, input.id)} />
         ))}
-        <Button buttonType="Success"
-                disabled={!this.state.formIsValid}>ORDER</Button>
+        <Button buttonType="Success" disabled={!this.state.formIsValid}>
+          ORDER
+        </Button>
       </form>
     );
 

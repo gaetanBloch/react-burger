@@ -21,6 +21,7 @@ export class Auth extends Component {
         'password',
       ),
     },
+    formIsValid: false,
   };
 
   inputChangedHandler = (event, inputId) => {
@@ -37,7 +38,7 @@ export class Auth extends Component {
     });
 
     let form = (
-      <form onSubmit={this.orderHandler}>
+      <form>
         {inputs.map(input => (
           <Input
             key={input.id}
@@ -50,7 +51,9 @@ export class Auth extends Component {
             valueType={input.config.valueType}
             changed={(event) => this.inputChangedHandler(event, input.id)} />
         ))}
-        <Button buttonType="Success">Submit</Button>
+        <Button buttonType="Success" disabled={!this.state.formIsValid}>
+          SUBMIT
+        </Button>
       </form>
     );
 
