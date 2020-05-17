@@ -17,7 +17,7 @@ export class Auth extends Component {
       password: initializeFormElement(
         'Password',
         'password',
-        { isEmail: true, minLength: 6 },
+        { minLength: 6 },
         'password',
       ),
     },
