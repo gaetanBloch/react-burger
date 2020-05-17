@@ -21,7 +21,7 @@ export const initializeFormElement = (
   };
 };
 
-export const checkValidity = (value, rules) => {
+const checkValidity = (value, rules) => {
   let isValid = true;
   if (rules.required) {
     isValid = value != null && value.trim() !== '' && isValid;
@@ -41,4 +41,24 @@ export const checkValidity = (value, rules) => {
     isValid = pattern.test(value) && isValid;
   }
   return isValid;
+};
+
+export const handleChangedForm = (event, inputId, formKey, that) => {
+  const updatedOrderForm = { ...that.state[formKey] };
+  const updatedFormElement = { ...updatedOrderForm[inputId] };
+  updatedFormElement.value = event.target.value;
+  updatedFormElement.valid = checkValidity(
+    updatedFormElement.value,
+    updatedFormElement.validation,
+  );
+  updatedFormElement.touched = true;
+  updatedOrderForm[inputId] = updatedFormElement;
+
+  // Check for all inputs validity
+  let formIsValid = true;
+  Object.keys(updatedOrderForm).forEach(inputId => {
+    formIsValid = updatedOrderForm[inputId].valid && formIsValid;
+  });
+
+  that.setState({ [formKey]: updatedOrderForm, formIsValid: formIsValid });
 };
