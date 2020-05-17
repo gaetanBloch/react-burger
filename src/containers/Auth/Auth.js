@@ -80,7 +80,7 @@ export class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: dispatch((email, password) => actions.auth(email, password))
+    onAuth: (email, password) => dispatch(actions.auth(email, password))
   };
 };
 
