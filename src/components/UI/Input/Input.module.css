@@ -29,12 +29,12 @@
 
 .InputElement:focus.Invalid {
   outline: none;
-  background-color: #ffd6d2;
+  background-color: #fdf4f3;
 }
 
 .Invalid {
   border: 1px solid red;
-  background-color: #ffebea;
+  background-color: #fdf4f3;
 }
 
 .ValidationError {

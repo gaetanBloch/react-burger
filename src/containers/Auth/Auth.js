@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { initializeFormElement } from '../formUtils';
+import { handleChangedForm, initializeFormElement } from '../formUtils';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import styles from './Auth.module.css';
@@ -21,6 +21,10 @@ export class Auth extends Component {
         'password',
       ),
     },
+  };
+
+  inputChangedHandler = (event, inputId) => {
+    handleChangedForm(event, inputId, 'controls', this);
   };
 
   render () {
