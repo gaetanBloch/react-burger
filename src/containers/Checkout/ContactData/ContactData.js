@@ -8,51 +8,31 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import { checkValidity, initializeFormElement } from './ContactDataUtils';
 
 class ContactData extends Component {
-  initializeFormElement = (placeholder,
-                           valueType,
-                           validationRules = null,
-                           type = 'text') => {
-    return {
-      elementType: 'input',
-      elementConfig: {
-        type: type,
-        placeholder: placeholder
-      },
-      valueType: valueType,
-      value: '',
-      validation: {
-        required: true,
-        ...validationRules
-      },
-      valid: false,
-      touched: false
-    };
-  };
-
   state = {
     orderForm: {
-      name: this.initializeFormElement(
+      name: initializeFormElement(
         'Your Name',
         'name'
       ),
-      email: this.initializeFormElement(
+      email: initializeFormElement(
         'Your E-Mail',
         'e-mail address',
         {isEmail: true},
         'email'
       ),
-      street: this.initializeFormElement(
+      street: initializeFormElement(
         'Street',
         'street name'
       ),
-      zipCode: this.initializeFormElement(
+      zipCode: initializeFormElement(
         'ZIP Code',
         'ZIP code',
         {minLength: 5, maxLength: 5, isNumeric: true}
       ),
-      country: this.initializeFormElement(
+      country: initializeFormElement(
         'Country',
         'country name'
       ),
@@ -71,28 +51,6 @@ class ContactData extends Component {
     },
     formIsValid: false
   };
-
-  checkValidity(value, rules) {
-    let isValid = true;
-    if (rules.required) {
-      isValid = value != null && value.trim() !== '' && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value != null && value.length >= rules.minLength && isValid;
-    }
-    if (rules.maxLength) {
-      isValid = value != null && value.length <= rules.maxLength && isValid;
-    }
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value) && isValid
-    }
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/;
-      isValid = pattern.test(value) && isValid
-    }
-    return isValid;
-  }
 
   orderHandler = async (event) => {
     // Prevent submission of the form
@@ -116,8 +74,7 @@ class ContactData extends Component {
     const updatedOrderForm = {...this.state.orderForm}
     const updatedFormElement = {...updatedOrderForm[inputId]}
     updatedFormElement.value = event.target.value;
-    updatedFormElement.valid =
-      this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
     updatedFormElement.touched = true;
     updatedOrderForm[inputId] = updatedFormElement;
 
