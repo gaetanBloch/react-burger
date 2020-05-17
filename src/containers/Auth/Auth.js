@@ -21,9 +21,8 @@ export class Auth extends Component {
         'Password',
         'password',
         'Password',
-        'password',
-        '',
         { minLength: 6 },
+        '',
         'password',
       ),
     },
@@ -54,7 +53,13 @@ export class Auth extends Component {
 
   switchAuthModeHandler = () => {
     this.setState(prevState => ({
-      signInMode: !prevState.signInMode
+      signInMode: !prevState.signInMode,
+      controls: {
+        ...prevState.controls,
+        password: {
+          ...prevState.controls.password, value: ''
+        }
+      }
     }));
   };
 
