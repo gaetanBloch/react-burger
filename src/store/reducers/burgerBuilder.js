@@ -26,6 +26,7 @@ const burgerBuilder = (state = initialState, action) => {
         },
         totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientType]
       }
+
     case actionTypes.REMOVE_INGREDIENT:
       const oldCount = state.ingredients[action.ingredientType]
       if (oldCount > 0) {
@@ -39,8 +40,8 @@ const burgerBuilder = (state = initialState, action) => {
         };
       }
       return state;
-    case actionTypes.FETCH_INGREDIENTS_SUCCESS:
 
+    case actionTypes.FETCH_INGREDIENTS_SUCCESS:
       const calculateInitialPrice = (ingredients) => {
         const totalPrice = Object.keys(ingredients)
           .map(key => ingredients[key] * INGREDIENT_PRICES[key])
@@ -59,6 +60,7 @@ const burgerBuilder = (state = initialState, action) => {
         totalPrice: calculateInitialPrice(action.ingredients),
         error: false
       };
+      
     case actionTypes.FETCH_INGREDIENTS_FAIL:
       return {
         ...state,
