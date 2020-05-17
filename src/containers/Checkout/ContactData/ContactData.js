@@ -69,7 +69,6 @@ class ContactData extends Component {
         valid: true
       },
     },
-    loading: false,
     formIsValid: false
   };
 
@@ -98,8 +97,6 @@ class ContactData extends Component {
   orderHandler = async (event) => {
     // Prevent submission of the form
     event.preventDefault();
-
-    this.setState({loading: true});
 
     const formData = {}
     Object.keys(this.state.orderForm).forEach(formElementKey => {
@@ -160,7 +157,7 @@ class ContactData extends Component {
       </form>
     );
 
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
 
@@ -177,6 +174,7 @@ const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
     totalPrice: state.totalPrice,
+    loading: state.loading
   }
 }
 

@@ -25,14 +25,17 @@ const postOrder = async (dispatch, orderData) => {
   }
 }
 
-export const purchaseBurger = (orderData) => {
-  return dispatch => {
-    postOrder(dispatch, orderData);
-  }
-}
-
-export const purchaseBurgerStart = () => {
+const purchaseBurgerStart = () => {
   return {
     type: actionTypes.PURCHASE_BURGER_START
   }
 }
+
+export const purchaseBurger = (orderData) => {
+  return dispatch => {
+    dispatch(purchaseBurgerStart());
+    postOrder(dispatch, orderData);
+  }
+}
+
+
