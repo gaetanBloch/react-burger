@@ -8,6 +8,16 @@
   font-weight: bold;
   display: block;
   margin-bottom: 8px;
+  text-align: left;
+}
+
+.Input label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .InputElement {
@@ -40,4 +50,5 @@
 .ValidationError {
   color: red;
   margin: 5px 0;
+  text-align: left;
 }

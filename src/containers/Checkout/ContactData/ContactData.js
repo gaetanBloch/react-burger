@@ -14,42 +14,49 @@ class ContactData extends Component {
   state = {
     orderForm: {
       name: initializeFormElement(
-        'Your Name',
+        'Your Name*',
         'name',
+        'name'
       ),
       email: initializeFormElement(
-        'Your E-Mail',
+        'Your E-Mail*',
+        'email',
         'e-mail address',
         { isEmail: true },
-        'email',
+        'ex: gaetan.bloch@gmail.com'
       ),
       street: initializeFormElement(
-        'Street',
-        'street name',
+        'Street*',
+        'street',
+        'street name'
       ),
       zipCode: initializeFormElement(
-        'ZIP Code',
+        'ZIP Code*',
+        'zipcode',
         'ZIP code',
-        { minLength: 5, maxLength: 5, isNumeric: true },
+        { minLength: 5, maxLength: 5, isNumeric: true }
       ),
       country: initializeFormElement(
-        'Country',
-        'country name',
+        'Country*',
+        'country',
+        'country name'
       ),
       deliveryMethod: {
         elementType: 'select',
+        label: 'Delivery method*',
+        id: 'delivery',
         elementConfig: {
           options: [
             { value: 'fastest', displayValue: 'Fastest' },
-            { value: 'cheapest', displayValue: 'Cheapest' },
+            { value: 'cheapest', displayValue: 'Cheapest' }
           ],
         },
         value: 'fastest',
         validation: {},
-        valid: true,
+        valid: true
       },
     },
-    formIsValid: false,
+    formIsValid: false
   };
 
   orderHandler = async (event) => {
@@ -64,7 +71,7 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
-      orderData: formData,
+      orderData: formData
     };
 
     this.props.onOrderBurger(order);
@@ -79,7 +86,7 @@ class ContactData extends Component {
     Object.keys(this.state.orderForm).forEach(key => {
       inputs.push({
         id: key,
-        config: this.state.orderForm[key],
+        config: this.state.orderForm[key]
       });
     });
 
@@ -88,6 +95,8 @@ class ContactData extends Component {
         {inputs.map(input => (
           <Input
             key={input.id}
+            label={input.config.label}
+            id={input.config.id}
             elementType={input.config.elementType}
             elementConfig={input.config.elementConfig}
             value={input.config.value}
@@ -120,7 +129,7 @@ const mapStateToProps = state => {
   return {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
-    loading: state.order.loading,
+    loading: state.order.loading
   };
 };
 

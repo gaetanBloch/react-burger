@@ -1,26 +1,3 @@
-export const initializeFormElement = (
-  placeholder,
-  valueType,
-  validationRules = null,
-  type = 'text',
-) => {
-  return {
-    elementType: 'input',
-    elementConfig: {
-      type: type,
-      placeholder: placeholder,
-    },
-    valueType: valueType,
-    value: '',
-    validation: {
-      required: true,
-      ...validationRules,
-    },
-    valid: false,
-    touched: false,
-  };
-};
-
 const checkValidity = (value, rules) => {
   let isValid = true;
   if (rules.required) {
@@ -61,4 +38,31 @@ export const handleChangedForm = (event, inputId, formKey, that) => {
   });
 
   that.setState({ [formKey]: updatedOrderForm, formIsValid: formIsValid });
+};
+
+export const initializeFormElement = (
+  label,
+  id,
+  valueType,
+  validationRules = null,
+  placeholder = '',
+  type = 'text',
+) => {
+  return {
+    elementType: 'input',
+    label: label,
+    id: id,
+    elementConfig: {
+      type: type,
+      placeholder: placeholder,
+    },
+    valueType: valueType,
+    value: '',
+    validation: {
+      required: true,
+      ...validationRules,
+    },
+    valid: false,
+    touched: false,
+  };
 };

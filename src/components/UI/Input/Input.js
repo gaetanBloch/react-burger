@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Input.module.css'
+import styles from './Input.module.css';
 
 const Input = (props) => {
-  let inputClasses = [styles.InputElement]
+  let inputClasses = [styles.InputElement];
   if (props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(styles.Invalid);
   }
@@ -17,7 +17,7 @@ const Input = (props) => {
         className={inputClasses.join(' ')}
         {...props.elementConfig}
         value={props.value}
-        onChange={props.changed} />
+        onChange={props.changed} />;
       break;
     case 'textarea':
       inputElement = <textarea
@@ -25,7 +25,7 @@ const Input = (props) => {
         className={inputClasses.join(' ')}
         {...props.elementConfig}
         value={props.value}
-        onChange={props.changed} />
+        onChange={props.changed} />;
       break;
     case 'select':
       inputElement = (
@@ -35,10 +35,11 @@ const Input = (props) => {
           value={props.value}
           onChange={props.changed}>
           {props.elementConfig.options.map(option => (
-            <option key={option.value} value={option.value}>{option.displayValue}</option>
+            <option key={option.value}
+                    value={option.value}>{option.displayValue}</option>
           ))}
         </select>
-      )
+      );
       break;
     default:
       inputElement = <input
@@ -46,7 +47,7 @@ const Input = (props) => {
         className={inputClasses.join(' ')}
         {...props.elementConfig}
         value={props.value}
-        onChange={props.changed} />
+        onChange={props.changed} />;
   }
 
   let validationError = null;
@@ -76,6 +77,6 @@ Input.propTypes = {
   invalid: PropTypes.bool.isRequired,
   shouldValidate: PropTypes.object,
   valueType: PropTypes.string
-}
+};
 
 export default Input;

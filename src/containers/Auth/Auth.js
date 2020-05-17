@@ -12,13 +12,17 @@ export class Auth extends Component {
     controls: {
       email: initializeFormElement(
         'Mail address',
+        'email',
         'e-mail address',
         { isEmail: true },
-        'email',
+        'ex: gaetan.bloch@gmail.com',
       ),
       password: initializeFormElement(
         'Password',
         'password',
+        'Password',
+        'password',
+        '',
         { minLength: 6 },
         'password',
       ),
@@ -68,6 +72,8 @@ export class Auth extends Component {
         {inputs.map(input => (
           <Input
             key={input.id}
+            label={input.config.label}
+            id={input.config.id}
             elementType={input.config.elementType}
             elementConfig={input.config.elementConfig}
             value={input.config.value}
