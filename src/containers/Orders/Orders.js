@@ -13,12 +13,18 @@ class Orders extends Component {
   }
 
   render () {
-    let orders = this.props.orders.map(order => {
-      return <Order
-        key={order.id}
-        ingredients={order.ingredients}
-        price={order.price} />;
-    });
+    let orders = <h2 style={{textAlign: 'center'}}>
+      No past orders history to display.
+    </h2>
+
+    if (this.props.orders.length > 0) {
+      orders = this.props.orders.map(order => {
+        return <Order
+          key={order.id}
+          ingredients={order.ingredients}
+          price={order.price} />;
+      });
+    }
 
     if (this.props.loading) {
       orders = <Spinner />;
