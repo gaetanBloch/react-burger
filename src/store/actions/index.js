@@ -13,5 +13,6 @@ export {
 export {
   signIn,
   signUp,
-  signOut
+  signOut,
+  setAuthRedirectPath
 } from './auth';
