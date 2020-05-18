@@ -16,7 +16,9 @@ class ContactData extends Component {
       name: initializeFormElement(
         'Your Name*',
         'name',
-        'name'
+        'name',
+        null,
+        'ex: Gaëtan Bloch'
       ),
       email: initializeFormElement(
         'Your E-Mail*',
@@ -28,18 +30,23 @@ class ContactData extends Component {
       street: initializeFormElement(
         'Street*',
         'street',
-        'street name'
+        'street name',
+        null,
+        'ex: 66 Nantes Street'
       ),
       zipCode: initializeFormElement(
         'ZIP Code*',
         'zipcode',
         'ZIP code',
-        { minLength: 5, maxLength: 5, isNumeric: true }
+        { minLength: 5, maxLength: 5, isNumeric: true },
+        'ex: 44300'
       ),
       country: initializeFormElement(
         'Country*',
         'country',
-        'country name'
+        'country name',
+        null,
+        'ex: France'
       ),
       deliveryMethod: {
         elementType: 'select',
