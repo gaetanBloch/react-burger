@@ -21,6 +21,10 @@ const asyncAuth = asyncComponent(() => {
   return import('./containers/Auth/Auth');
 });
 
+const asyncContactData = asyncComponent(() => {
+  return import('./containers/Checkout/ContactData/ContactData');
+});
+
 class App extends Component {
   componentDidMount () {
     this.props.onTryAutoSignIn();
@@ -37,7 +41,8 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/checkout" component={asyncCheckout} />
+          <Route path="/checkout" component={asyncCheckout} exact />
+          <Route path="/checkout/contact-data" component={asyncContactData} />
           <Route path="/orders" component={asyncOrders} />
           <Route path="/sign-out" component={SignOut} />
           <Route path="/auth" component={asyncAuth} />

@@ -32,7 +32,6 @@ class Checkout extends Component {
             totalPrice={this.props.totalPrice}
             checkoutCancelled={this.checkoutCancelledHandler}
             checkoutContinued={this.checkoutContinuedHandler} />
-          <Route path={this.getContactDataPath()} component={ContactData} />
         </Fragment>
       )
     }
