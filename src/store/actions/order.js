@@ -17,10 +17,10 @@ const purchaseBurgerFail = () => {
   };
 };
 
-const postOrder = async (dispatch, orderData) => {
+const postOrder = async (dispatch, order, token) => {
   try {
-    const response = await axios.post('/orders.json', orderData);
-    dispatch(purchaseBurgerSuccess(response.data.name, orderData));
+    const response = await axios.post(`/orders.json?auth=${token}`, order);
+    dispatch(purchaseBurgerSuccess(response.data.name, order));
   } catch (error) {
     dispatch(purchaseBurgerFail());
   }
@@ -32,10 +32,10 @@ const purchaseBurgerStart = () => {
   };
 };
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
   return dispatch => {
     dispatch(purchaseBurgerStart());
-    postOrder(dispatch, orderData);
+    postOrder(dispatch, orderData, token);
   };
 };
 
