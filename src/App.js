@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router';
+import { Redirect, Route, Switch, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import styles from './App.modules.css';
@@ -21,6 +21,7 @@ class App extends Component {
       <Switch>
         <Route path="/auth" component={Auth} />
         <Route path="/" component={BurgerBuilder} exact />
+        <Redirect to='/' />
       </Switch>
     );
     if (this.props.isAuthenticated) {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path="/orders" component={Orders} />
           <Route path="/sign-out" component={SignOut} />
           <Route path="/" component={BurgerBuilder} exact />
+          <Redirect to='/' />
         </Switch>
       );
     }
