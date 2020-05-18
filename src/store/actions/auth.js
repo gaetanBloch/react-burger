@@ -36,7 +36,6 @@ const doAuth = async (dispatch, email, password, urlComplement) => {
       `${BASE_URL}${urlComplement}?key=${API_KEY}`,
       payload
     );
-    console.log(response);
     dispatch(authSuccess(response.data));
   } catch (error) {
     console.log(error.response.data.error.message);

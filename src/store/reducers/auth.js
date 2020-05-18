@@ -21,9 +21,39 @@ const authSuccess = (state, action) => {
   });
 };
 
+const getErrorMessage = (error) => {
+  const defaultErrorMessage = 'An Unknown error occurred!';
+
+  if (!error.response || !error.response.data || !error.response.data.error) {
+    return defaultErrorMessage;
+  }
+  switch (error.response.data.error.message) {
+    case 'MISSING_PASSWORD':
+      return 'No password were provided.';
+    case 'WEAK_PASSWORD':
+      return 'The password must be 6 characters long or more.';
+    case 'EMAIL_EXISTS' :
+      return 'The email address is already in use by another account.';
+    case 'OPERATION_NOT_ALLOWED':
+      return 'Password sign-in is disabled for this project.';
+    case 'TOO_MANY_ATTEMPTS_TRY_LATER' :
+      return 'We have blocked all requests from this device due to unusual' +
+        ' activity. Try again later.';
+    case 'EMAIL_NOT_FOUND' :
+      return 'There is no user record corresponding to this identifier.' +
+        ' The user may have been deleted.';
+    case 'INVALID_PASSWORD':
+      return 'The password is invalid or the user does not have a password.';
+    case 'USER_DISABLED' :
+      return 'The user account has been disabled by an administrator.';
+    default:
+      return defaultErrorMessage;
+  }
+};
+
 const authFail = (state, action) => {
   return updateObject(state, {
-    error: action.error,
+    error: getErrorMessage(action.error),
     loading: false
   });
 };
