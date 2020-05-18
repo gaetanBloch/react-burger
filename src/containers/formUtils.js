@@ -1,3 +1,5 @@
+import { updateObject } from '../shared/utils';
+
 const checkValidity = (value, rules) => {
   let isValid = true;
   if (rules.required) {
@@ -21,15 +23,19 @@ const checkValidity = (value, rules) => {
 };
 
 export const handleChangedForm = (event, inputId, formKey, that) => {
-  const updatedOrderForm = { ...that.state[formKey] };
-  const updatedFormElement = { ...updatedOrderForm[inputId] };
-  updatedFormElement.value = event.target.value;
-  updatedFormElement.valid = checkValidity(
-    updatedFormElement.value,
-    updatedFormElement.validation,
-  );
-  updatedFormElement.touched = true;
-  updatedOrderForm[inputId] = updatedFormElement;
+
+  const updatedFormElement = updateObject(that.state[formKey][inputId], {
+    value: event.target.value,
+    valid: checkValidity(
+      event.target.value,
+      that.state[formKey][inputId].validation,
+    ),
+    touched: true
+  });
+  const updatedOrderForm = updateObject(
+    that.state[formKey],
+    { [inputId]: updatedFormElement }
+    );
 
   // Check for all inputs validity
   let formIsValid = true;
