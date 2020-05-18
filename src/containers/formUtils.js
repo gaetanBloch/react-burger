@@ -23,27 +23,25 @@ const checkValidity = (value, rules) => {
 };
 
 export const handleChangedForm = (event, inputId, formKey, that) => {
-
-  const updatedFormElement = updateObject(that.state[formKey][inputId], {
-    value: event.target.value,
-    valid: checkValidity(
-      event.target.value,
-      that.state[formKey][inputId].validation,
-    ),
-    touched: true
+  const updatedForm = updateObject(that.state[formKey], {
+    [inputId]: updateObject(that.state[formKey][inputId], {
+        value: event.target.value,
+        valid: checkValidity(
+          event.target.value,
+          that.state[formKey][inputId].validation,
+        ),
+        touched: true
+      }
+    )
   });
-  const updatedOrderForm = updateObject(
-    that.state[formKey],
-    { [inputId]: updatedFormElement }
-    );
 
   // Check for all inputs validity
   let formIsValid = true;
-  Object.keys(updatedOrderForm).forEach(inputId => {
-    formIsValid = updatedOrderForm[inputId].valid && formIsValid;
+  Object.keys(updatedForm).forEach(inputId => {
+    formIsValid = updatedForm[inputId].valid && formIsValid;
   });
 
-  that.setState({ [formKey]: updatedOrderForm, formIsValid: formIsValid });
+  that.setState({ [formKey]: updatedForm, formIsValid: formIsValid });
 };
 
 export const initializeFormElement = (
