@@ -4,10 +4,11 @@ import axios from 'axios';
 const BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:';
 const API_KEY = 'AIzaSyCv1I87seMOrUkt2qmRkdRrnd6a4_u_4mA';
 
-const authSuccess = (authData) => {
+const authSuccess = (responseData) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData: authData
+    token: responseData.idToken,
+    userId: responseData.localId
   };
 };
 
