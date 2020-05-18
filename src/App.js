@@ -10,6 +10,10 @@ import Auth from './containers/Auth/Auth';
 import SignOut from './containers/Auth/SignOut/SignOut';
 
 class App extends Component {
+  componentDidMount () {
+
+  }
+
   render () {
     return (
       <div className={styles.App}>
