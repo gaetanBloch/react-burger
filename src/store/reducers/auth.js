@@ -9,7 +9,7 @@ const initialState = {
   authRedirectPath: '/'
 };
 
-const authStart = (state) => {
+const authStart = state => {
   return updateObject(state, { error: null, loading: true });
 };
 
@@ -22,7 +22,7 @@ const authSuccess = (state, action) => {
   });
 };
 
-const getErrorMessage = (error) => {
+const getErrorMessage = error => {
   const defaultErrorMessage = 'An Unknown error occurred!';
 
   if (!error.response || !error.response.data || !error.response.data.error) {
@@ -59,7 +59,7 @@ const authFail = (state, action) => {
   });
 };
 
-const authSignOut = (state) => {
+const authSignOut = state => {
   return updateObject(state, { token: null, userId: null });
 };
 

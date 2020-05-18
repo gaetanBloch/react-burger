@@ -69,7 +69,7 @@ const fetchIngredientSuccess = (state, action) => {
   });
 };
 
-const fetchIngredientsFail = (state, action) => {
+const fetchIngredientsFail = state => {
   return updateObject(state, { error: true });
 };
 
@@ -82,7 +82,7 @@ const burgerBuilder = (state = initialState, action) => {
     case actionTypes.FETCH_INGREDIENTS_SUCCESS:
       return fetchIngredientSuccess(state, action);
     case actionTypes.FETCH_INGREDIENTS_FAIL:
-      return fetchIngredientsFail(state, action);
+      return fetchIngredientsFail(state);
     default:
       return state;
   }
