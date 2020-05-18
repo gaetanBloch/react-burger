@@ -45,9 +45,8 @@ const doAuth = async (dispatch, email, password, urlComplement) => {
       payload
     );
     dispatch(authSuccess(response.data));
-    dispatch(checkAuthTimeout(response.timeout.expiresIn));
+    dispatch(checkAuthTimeout(response.data.expiresIn));
   } catch (error) {
-    console.log(error.response.data.error.message);
     dispatch(authFail(error));
   }
 };
