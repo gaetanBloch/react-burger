@@ -58,9 +58,12 @@ export class Auth extends Component {
       controls: {
         ...prevState.controls,
         password: {
-          ...prevState.controls.password, value: ''
+          ...prevState.controls.password, value: '',
+          valid: false,
+          touched: false
         }
-      }
+      },
+      formIsValid: false
     }));
   };
 
