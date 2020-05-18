@@ -63,6 +63,10 @@ const authSignOut = (state) => {
   return updateObject(state, { token: null, userId: null });
 };
 
+const setAuthRedirectPath = (state, action) => {
+  return updateObject(state, { authRedirectPath: action.path });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -73,6 +77,8 @@ const reducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_SIGN_OUT:
       return authSignOut(state);
+    case actionTypes.SET_AUTH_REDIRECT_PATH:
+      return setAuthRedirectPath(state, action);
     default:
       return state;
   }
