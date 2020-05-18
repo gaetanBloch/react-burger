@@ -37,14 +37,12 @@
   background-color: #eeeeee;
 }
 
-.InputElement:focus.Invalid {
-  outline: none;
-  background-color: #fdf4f3;
-}
-
 .Invalid {
   border: 1px solid red;
-  background-color: #fdf4f3;
+}
+
+.InvalidLabel {
+  color: red;
 }
 
 .ValidationError {

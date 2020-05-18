@@ -1,53 +1,73 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Input.module.css';
 
 const Input = (props) => {
   let inputClasses = [styles.InputElement];
+  let labelClass;
   if (props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(styles.Invalid);
+    labelClass = styles.InvalidLabel;
   }
 
   let inputElement;
   switch (props.elementType) {
     case 'input':
-      inputElement = <input
-        id={props.id}
-        className={inputClasses.join(' ')}
-        {...props.elementConfig}
-        value={props.value}
-        onChange={props.changed} />;
+      inputElement =
+        <Fragment>
+          <label className={labelClass} htmlFor={props.id}>{props.label}</label>
+          <input
+            id={props.id}
+            className={inputClasses.join(' ')}
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed} />
+        </Fragment>;
       break;
     case 'textarea':
-      inputElement = <textarea
-        id={props.id}
-        className={inputClasses.join(' ')}
-        {...props.elementConfig}
-        value={props.value}
-        onChange={props.changed} />;
+      inputElement = (
+        <Fragment>
+          <label className={labelClass} htmlFor={props.id}>{props.label}</label>
+          <textarea
+            id={props.id}
+            className={inputClasses.join(' ')}
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed} />
+        </Fragment>
+      );
+
       break;
     case 'select':
       inputElement = (
-        <select
-          id={props.id}
-          className={inputClasses.join(' ')}
-          value={props.value}
-          onChange={props.changed}>
-          {props.elementConfig.options.map(option => (
-            <option key={option.value}
-                    value={option.value}>{option.displayValue}</option>
-          ))}
-        </select>
+        <Fragment>
+          <label className={labelClass} htmlFor={props.id}>{props.label}</label>
+          <select
+            id={props.id}
+            className={inputClasses.join(' ')}
+            value={props.value}
+            onChange={props.changed}>
+            {props.elementConfig.options.map(option => (
+              <option key={option.value}
+                      value={option.value}>{option.displayValue}</option>
+            ))}
+          </select>
+        </Fragment>
       );
       break;
     default:
-      inputElement = <input
-        id={props.id}
-        className={inputClasses.join(' ')}
-        {...props.elementConfig}
-        value={props.value}
-        onChange={props.changed} />;
+      inputElement = (
+        <Fragment>
+          <label className={labelClass} htmlFor={props.id}>{props.label}</label>
+          <input
+            id={props.id}
+            className={inputClasses.join(' ')}
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed} />
+        </Fragment>
+      );
   }
 
   let validationError = null;
@@ -60,7 +80,6 @@ const Input = (props) => {
 
   return (
     <div className={styles.Input}>
-      <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
       {validationError}
     </div>
