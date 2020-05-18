@@ -58,12 +58,6 @@ const dispatchAuth = (email, password, urlComplement) => {
   };
 };
 
-export const signOut = () => {
-  return {
-    type: actionTypes.AUTH_SIGN_OUT
-  };
-};
-
 export const signIn = (email, password) => {
   return dispatchAuth(email, password, 'signInWithPassword');
 };
@@ -71,3 +65,16 @@ export const signIn = (email, password) => {
 export const signUp = (email, password) => {
   return dispatchAuth(email, password, 'signUp');
 };
+
+export const signOut = () => {
+  return {
+    type: actionTypes.AUTH_SIGN_OUT
+  };
+};
+
+export const setAuthRedirectPath = (path) => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
+  }
+}
