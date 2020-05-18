@@ -6,6 +6,7 @@ import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import styles from './Auth.module.css';
 import * as actions from '../../store/actions/index';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 export class Auth extends Component {
   state = {
@@ -94,6 +95,10 @@ export class Auth extends Component {
       </form>
     );
 
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+
     return (
       <div className={styles.Auth}>
         <h1>{this.state.signInMode ? 'Sign in' : 'Sign up'}</h1>
@@ -106,6 +111,12 @@ export class Auth extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onSignIn: (email, password) => dispatch(actions.signIn(email, password)),
@@ -113,4 +124,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
