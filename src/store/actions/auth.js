@@ -27,7 +27,7 @@ const authStart = () => {
 };
 
 const checkAuthTimeout = (expirationTime) => {
-  console.log(`Session token expires in ${expirationTime / 1000}seconds`);
+  console.log(`Session token expires in ${expirationTime / 1000} seconds`);
   return dispatch => {
     setTimeout(() => {
       dispatch(signOut());
@@ -49,11 +49,9 @@ const doAuth = async (dispatch, email, password, urlComplement) => {
     const expiresInMillis = +response.data.expiresIn * 1000;
     const expirationDate = new Date(new Date().getTime() + expiresInMillis);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      user: {
-        token: response.data.idToken,
-        userId: response.data.localId,
-        expirationDate: expirationDate
-      }
+      token: response.data.idToken,
+      userId: response.data.localId,
+      expirationDate: expirationDate
     }));
     dispatch(authSuccess(response.data.idToken, response.data.localId));
     dispatch(checkAuthTimeout(expiresInMillis));
@@ -101,7 +99,7 @@ export const authCheckState = () => {
       if (expirationDate > new Date()) {
         dispatch(authSuccess(userData.token, userData.userId));
         dispatch(checkAuthTimeout(
-          expirationDate.getSeconds() - new Date().getSeconds()
+          expirationDate.getTime() - new Date().getTime()
         ));
       } else {
         dispatch(signOut());
