@@ -50,6 +50,12 @@ const dispatchAuth = (email, password, urlComplement) => {
   };
 };
 
+export const signOut = () => {
+  return {
+    type: actionTypes.AUTH_SIGN_OUT
+  };
+};
+
 export const signIn = (email, password) => {
   return dispatchAuth(email, password, 'signInWithPassword');
 };
