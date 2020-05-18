@@ -94,7 +94,7 @@ export const setAuthRedirectPath = (path) => {
 export const authCheckState = () => {
   return dispatch => {
     const userData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (!userData.token) {
+    if (!userData) {
       dispatch(signOut());
     } else {
       const expirationDate = new Date(userData.expirationDate);
