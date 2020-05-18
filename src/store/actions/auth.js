@@ -25,6 +25,14 @@ const authStart = () => {
   };
 };
 
+const checkAuthTimeout = (expirationTime) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(signOut());
+    }, +expirationTime * 1000);
+  };
+};
+
 const doAuth = async (dispatch, email, password, urlComplement) => {
   const payload = {
     email: email,
@@ -37,6 +45,7 @@ const doAuth = async (dispatch, email, password, urlComplement) => {
       payload
     );
     dispatch(authSuccess(response.data));
+    dispatch(checkAuthTimeout(response.timeout.expiresIn));
   } catch (error) {
     console.log(error.response.data.error.message);
     dispatch(authFail(error));
