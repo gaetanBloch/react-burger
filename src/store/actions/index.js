@@ -12,5 +12,6 @@ export {
 
 export {
   signIn,
-  signUp
+  signUp,
+  signOut
 } from './auth';

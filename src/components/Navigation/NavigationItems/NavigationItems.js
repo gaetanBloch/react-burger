@@ -7,19 +7,19 @@ const NavigationItems = (props) => (
   <nav>
     <ul className={styles.NavigationItems}>
       {
-        props.isAuthenticated ?
-          <NavigationItem link="/" exact>Burger Builder</NavigationItem> :
-          null
+        props.isAuthenticated
+          ? <NavigationItem link="/" exact>Burger Builder</NavigationItem>
+          : null
       }
       {
-        props.isAuthenticated ?
-          <NavigationItem link="/orders">Orders</NavigationItem> :
-          null
+        props.isAuthenticated
+          ? <NavigationItem link="/orders">Orders</NavigationItem>
+          : null
       }
       {
-        props.isAuthenticated ?
-          <NavigationItem link="/sign-out">Sign out</NavigationItem> :
-          <NavigationItem link="/auth">Authenticate</NavigationItem>
+        props.isAuthenticated
+          ? <NavigationItem link="/sign-out">Sign out</NavigationItem>
+          : <NavigationItem link="/auth">Authenticate</NavigationItem>
       }
     </ul>
   </nav>
