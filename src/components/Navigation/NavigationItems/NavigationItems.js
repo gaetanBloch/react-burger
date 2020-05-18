@@ -6,11 +6,7 @@ import NavigationItem from './NavigationItem/NavigationItem';
 const NavigationItems = (props) => (
   <nav>
     <ul className={styles.NavigationItems}>
-      {
-        props.isAuthenticated
-          ? <NavigationItem link="/" exact>Burger Builder</NavigationItem>
-          : null
-      }
+      <NavigationItem link="/" exact>Burger Builder</NavigationItem>
       {
         props.isAuthenticated
           ? <NavigationItem link="/orders">Orders</NavigationItem>
