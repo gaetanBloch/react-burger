@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -84,25 +84,30 @@ export class Auth extends Component {
     });
 
     let form = (
-      <form onSubmit={this.submitHandler}>
-        {inputs.map(input => (
-          <Input
-            key={input.id}
-            label={input.config.label}
-            id={input.config.id}
-            elementType={input.config.elementType}
-            elementConfig={input.config.elementConfig}
-            value={input.config.value}
-            invalid={!input.config.valid}
-            shouldValidate={input.config.validation}
-            touched={input.config.touched}
-            valueType={input.config.valueType}
-            changed={(event) => this.inputChangedHandler(event, input.id)} />
-        ))}
-        <Button buttonType="Success" disabled={!this.state.formIsValid}>
-          {this.state.signInMode ? 'SIGN IN' : 'SIGN UP'}
+      <Fragment>
+        <form onSubmit={this.submitHandler}>
+          {inputs.map(input => (
+            <Input
+              key={input.id}
+              label={input.config.label}
+              id={input.config.id}
+              elementType={input.config.elementType}
+              elementConfig={input.config.elementConfig}
+              value={input.config.value}
+              invalid={!input.config.valid}
+              shouldValidate={input.config.validation}
+              touched={input.config.touched}
+              valueType={input.config.valueType}
+              changed={(event) => this.inputChangedHandler(event, input.id)} />
+          ))}
+          <Button buttonType="Success" disabled={!this.state.formIsValid}>
+            {this.state.signInMode ? 'SIGN IN' : 'SIGN UP'}
+          </Button>
+        </form>
+        <Button buttonType="Danger" clicked={this.switchAuthModeHandler}>
+          SWITCH TO {this.state.signInMode ? 'SIGN UP' : 'SIGN IN'}
         </Button>
-      </form>
+      </Fragment>
     );
 
     if (this.props.loading) {
@@ -127,9 +132,6 @@ export class Auth extends Component {
         <h1>{this.state.signInMode ? 'Sign in' : 'Sign up'}</h1>
         {errorMessage}
         {form}
-        <Button buttonType="Danger" clicked={this.switchAuthModeHandler}>
-          SWITCH TO {this.state.signInMode ? 'SIGN UP' : 'SIGN IN'}
-        </Button>
       </div>
     );
   }
