@@ -1,28 +1,30 @@
 import React, { Component, Fragment } from 'react';
-import { Redirect, Route } from 'react-router';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
-import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
-import ContactData from './ContactData/ContactData';
+import CheckoutSummary
+  from '../../components/Order/CheckoutSummary/CheckoutSummary';
 
 class Checkout extends Component {
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
-  }
+  };
 
   checkoutContinuedHandler = () => {
     this.props.history.replace(this.getContactDataPath());
-  }
+  };
 
   getContactDataPath = () => {
     return this.props.match.url + '/contact-data';
-  }
+  };
 
-  render() {
+  render () {
     let summary = <Redirect to="/" />;
 
     if (this.props.ingredients) {
-      const purchasedRedirect = this.props.purchased ? <Redirect to="/" /> : null;
+      const purchasedRedirect = this.props.purchased
+        ? <Redirect to="/" />
+        : null;
 
       summary = (
         <Fragment>
@@ -33,7 +35,7 @@ class Checkout extends Component {
             checkoutCancelled={this.checkoutCancelledHandler}
             checkoutContinued={this.checkoutContinuedHandler} />
         </Fragment>
-      )
+      );
     }
 
     return summary;
@@ -45,8 +47,8 @@ const mapStateToProps = state => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     purchased: state.order.purchased
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Checkout);
 
