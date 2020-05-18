@@ -60,9 +60,9 @@ const fetchOrdersFail = () => {
   };
 };
 
-const getOrders = async (dispatch) => {
+const getOrders = async (dispatch, token) => {
   try {
-    const response = await axios.get('/orders.json');
+    const response = await axios.get(`/orders.json?auth=${token}`);
     const fetchedOrders = [];
     Object.keys(response.data).forEach(key => {
       fetchedOrders.push({
@@ -82,10 +82,10 @@ const fetchOrdersStart = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return dispatch => {
     dispatch(fetchOrdersStart());
-    getOrders(dispatch);
+    getOrders(dispatch, token);
   };
 };
 
