@@ -99,9 +99,17 @@ export class Auth extends Component {
       form = <Spinner />;
     }
 
+    let errorMessage = null;
+    if (this.props.error) {
+      errorMessage = (
+        <p>{this.props.error.message}</p>
+      );
+    }
+
     return (
       <div className={styles.Auth}>
         <h1>{this.state.signInMode ? 'Sign in' : 'Sign up'}</h1>
+        {errorMessage}
         {form}
         <Button buttonType="Danger" clicked={this.switchAuthModeHandler}>
           SWITCH TO {this.state.signInMode ? 'SIGN UP' : 'SIGN IN'}
@@ -113,7 +121,8 @@ export class Auth extends Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.auth.loading
+    loading: state.auth.loading,
+    error: state.auth.error
   };
 };
 
