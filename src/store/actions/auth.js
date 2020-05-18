@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:';
 const API_KEY = 'AIzaSyCv1I87seMOrUkt2qmRkdRrnd6a4_u_4mA';
+const STORAGE_KEY = 'burger-user';
 
 const authSuccess = (responseData) => {
   return {
@@ -26,10 +27,11 @@ const authStart = () => {
 };
 
 const checkAuthTimeout = (expirationTime) => {
+  console.log(`Token expires in ${expirationTime}ms`);
   return dispatch => {
     setTimeout(() => {
       dispatch(signOut());
-    }, +expirationTime * 1000);
+    }, expirationTime);
   };
 };
 
@@ -44,8 +46,16 @@ const doAuth = async (dispatch, email, password, urlComplement) => {
       `${BASE_URL}${urlComplement}?key=${API_KEY}`,
       payload
     );
+    const expiresInMillis = +response.data.expiresIn * 1000;
+    const expirationDate = new Date(new Date().getTime() + expiresInMillis);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      user: {
+        token: response.data.idToken,
+        expiresIn: expirationDate
+      }
+    }));
     dispatch(authSuccess(response.data));
-    dispatch(checkAuthTimeout(response.data.expiresIn));
+    dispatch(checkAuthTimeout(expiresInMillis));
   } catch (error) {
     dispatch(authFail(error));
   }
@@ -76,5 +86,5 @@ export const setAuthRedirectPath = (path) => {
   return {
     type: actionTypes.SET_AUTH_REDIRECT_PATH,
     path: path
-  }
-}
+  };
+};
