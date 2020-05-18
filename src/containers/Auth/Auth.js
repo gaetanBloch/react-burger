@@ -102,7 +102,7 @@ export class Auth extends Component {
     let errorMessage = null;
     if (this.props.error) {
       errorMessage = (
-        <p>{this.props.error}</p>
+        <p className={styles.ErrorMessage}>{this.props.error}</p>
       );
     }
 
