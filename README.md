@@ -40,3 +40,7 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 ### Contact Data Page
 
 ![Contact Data Page](https://i.imgur.com/kScOd0M.png)
+
+### Past Orders Page
+
+![Past Orders Page](https://i.imgur.com/z0i3HNv.png)
