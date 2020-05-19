@@ -16,12 +16,24 @@ describe('<NavigationItems />', () => {
   it('should render two <NavigationItem /> components if not authenticated',
     () => {
       expect(wrapper.find(NavigationItem)).toHaveLength(2);
-    });
+    }
+  );
 
-  it('should render three <NavigationItem /> components if not authenticated',
+  it('should render three <NavigationItem /> components if authenticated',
     () => {
-      // wrapper = shallow(<NavigationItems isAuthenticated />);
       wrapper.setProps({ isAuthenticated: true });
       expect(wrapper.find(NavigationItem)).toHaveLength(3);
-    });
+    }
+  );
+
+  it('should render Sign out <NavigationItem /> component if authenticated',
+    () => {
+      wrapper.setProps({ isAuthenticated: true });
+      expect(wrapper.contains(
+        <NavigationItem link='/sign-out'>
+          Sign out
+        </NavigationItem>
+      )).toEqual(true);
+    }
+  );
 });
