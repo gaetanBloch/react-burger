@@ -20,3 +20,7 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 ### Sign In Page
 
 ![Sign In Page](https://i.imgur.com/CtX54lt.png)
+
+### Sign Up Page
+
+![Sign Up Page](https://i.imgur.com/ShEgQ3E.png)
