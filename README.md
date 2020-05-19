@@ -14,3 +14,9 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 6. Run `npm install`
 7. Run `npm start`
 8. Navigate to http://localhost:3000/ with your favourite browser
+
+## Application
+
+### Sign In Page
+
+![Sign In Page](https://i.imgur.com/CtX54lt.png)
