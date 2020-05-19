@@ -47,4 +47,5 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 
 ### Responsive Design
 
-![Responsive Design 1](https://i.imgur.com/yT9AHOC.png)
+![Responsive Design 1](https://i.imgur.com/yT9AHOC.png) & 
+![Responsive Design 2](https://i.imgur.com/zWks8Il.png)
