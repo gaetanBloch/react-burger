@@ -36,3 +36,7 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 ### Burger Checkout Page
 
 ![Burger Checkout Page](https://i.imgur.com/TXOfOOE.png)
+
+### Contact Data Page
+
+![Contact Data Page](https://i.imgur.com/kScOd0M.png)
