@@ -29,6 +29,10 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 
 ![Sign Up Page](https://i.imgur.com/ShEgQ3E.png)
 
+### Sign Up Page Server Error
+
+![Sign Up Page Server Error](https://i.imgur.com/auZqx09.png)
+
 ### Burger Builder Page
 
 ![Burger Builder Page](https://i.imgur.com/i9NHoLN.png)
