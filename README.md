@@ -28,3 +28,7 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 ### Burger Builder Page
 
 ![Burger Builder Page](https://i.imgur.com/i9NHoLN.png)
+
+### Burger Checkout Modal
+
+![Burger Checkout Modal](https://i.imgur.com/5HcXTLo.png)
