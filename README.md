@@ -44,3 +44,7 @@ The application was built using [React.js 16.13](https://reactjs.org/), [Redux](
 ### Past Orders Page
 
 ![Past Orders Page](https://i.imgur.com/z0i3HNv.png)
+
+### Responsive Design
+
+![Responsive Design 1](https://i.imgur.com/yT9AHOC.png)
