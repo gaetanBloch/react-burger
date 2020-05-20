@@ -76,9 +76,9 @@ export const signUp = (email, password) => {
 };
 
 export const signOut = () => {
-  localStorage.removeItem(STORAGE_KEY);
+  // localStorage.removeItem(STORAGE_KEY);
   return {
-    type: actionTypes.AUTH_SIGN_OUT
+    type: actionTypes.AUTH_INITIATE_SIGN_OUT
   };
 };
 
