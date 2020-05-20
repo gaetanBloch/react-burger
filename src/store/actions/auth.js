@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import { STORAGE_KEY } from '../storeUtils';
 
 export const authSuccess = (token, userId) => {
   return {
@@ -67,20 +66,7 @@ export const setAuthRedirectPath = (path) => {
 };
 
 export const authCheckState = () => {
-  return dispatch => {
-    const userData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (!userData) {
-      dispatch(initiateSignOut());
-    } else {
-      const expirationDate = new Date(userData.expirationDate);
-      if (expirationDate > new Date()) {
-        dispatch(authSuccess(userData.token, userData.userId));
-        dispatch(checkAuthTimeout(
-          expirationDate.getTime() - new Date().getTime()
-        ));
-      } else {
-        dispatch(initiateSignOut());
-      }
-    }
+  return {
+    type: actionTypes.AUTH_CHECK_STATE
   };
 };
