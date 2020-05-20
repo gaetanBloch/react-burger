@@ -4,6 +4,7 @@ import axios from '../../axios-orders';
 import * as actions from '../actions';
 
 export function* purchaseBurgerInitSaga(action) {
+  yield put(actions.purchaseBurgerStart());
   try {
     const response = yield axios.post(
       `/orders.json?auth=${action.token}`,
