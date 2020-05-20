@@ -27,11 +27,9 @@ const authStart = () => {
 };
 
 const checkAuthTimeout = (expirationTime) => {
-  console.log(`Session token expires in ${expirationTime / 1000} seconds`);
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(signOut());
-    }, expirationTime);
+  return {
+    type: actionTypes.AUTH_CHECK_TIMEOUT,
+    expirationTime
   };
 };
 
@@ -75,10 +73,15 @@ export const signUp = (email, password) => {
   return dispatchAuth(email, password, 'signUp');
 };
 
-export const signOut = () => {
-  // localStorage.removeItem(STORAGE_KEY);
+export const initiateSignOut = () => {
   return {
     type: actionTypes.AUTH_INITIATE_SIGN_OUT
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: actionTypes.AUTH_SIGN_OUT
   };
 };
 
@@ -93,7 +96,7 @@ export const authCheckState = () => {
   return dispatch => {
     const userData = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!userData) {
-      dispatch(signOut());
+      dispatch(initiateSignOut());
     } else {
       const expirationDate = new Date(userData.expirationDate);
       if (expirationDate > new Date()) {
@@ -102,7 +105,7 @@ export const authCheckState = () => {
           expirationDate.getTime() - new Date().getTime()
         ));
       } else {
-        dispatch(signOut());
+        dispatch(initiateSignOut());
       }
     }
   };

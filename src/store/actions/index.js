@@ -13,6 +13,7 @@ export {
 export {
   signIn,
   signUp,
+  initiateSignOut,
   signOut,
   setAuthRedirectPath,
   authCheckState
