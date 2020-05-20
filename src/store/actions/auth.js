@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { STORAGE_KEY } from '../storeUtils';
 
 const BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:';
 const API_KEY = 'AIzaSyCv1I87seMOrUkt2qmRkdRrnd6a4_u_4mA';
-const STORAGE_KEY = 'burger-user';
 
 const authSuccess = (token, userId) => {
   return {
