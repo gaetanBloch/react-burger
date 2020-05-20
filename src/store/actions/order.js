@@ -3,7 +3,27 @@ import axios from '../../axios-orders';
 
 /* ******** PURCHASE BURGER ******* */
 
-const purchaseBurgerSuccess = (orderId, orderData) => {
+export const purchaseInit = () => {
+  return {
+    type: actionTypes.PURCHASE_INIT
+  };
+};
+
+export const purchaseBurgerInit = (orderData, token) => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_INIT,
+    order: orderData,
+    token
+  }
+};
+
+export const purchaseBurgerStart = () => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_START
+  };
+};
+
+export const purchaseBurgerSuccess = (orderId, orderData) => {
   return {
     type: actionTypes.PURCHASE_BURGER_SUCCESS,
     orderId: orderId,
@@ -11,37 +31,9 @@ const purchaseBurgerSuccess = (orderId, orderData) => {
   };
 };
 
-const purchaseBurgerFail = () => {
+export const purchaseBurgerFail = () => {
   return {
     type: actionTypes.PURCHASE_BURGER_FAIL
-  };
-};
-
-const postOrder = async (dispatch, order, token) => {
-  try {
-    const response = await axios.post(`/orders.json?auth=${token}`, order);
-    dispatch(purchaseBurgerSuccess(response.data.name, order));
-  } catch (error) {
-    dispatch(purchaseBurgerFail());
-  }
-};
-
-const purchaseBurgerStart = () => {
-  return {
-    type: actionTypes.PURCHASE_BURGER_START
-  };
-};
-
-export const purchaseBurger = (orderData, token) => {
-  return dispatch => {
-    dispatch(purchaseBurgerStart());
-    postOrder(dispatch, orderData, token);
-  };
-};
-
-export const purchaseInit = () => {
-  return {
-    type: actionTypes.PURCHASE_INIT
   };
 };
 
