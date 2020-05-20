@@ -1,11 +1,7 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
 import { STORAGE_KEY } from '../storeUtils';
 
-const BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:';
-const API_KEY = 'AIzaSyCv1I87seMOrUkt2qmRkdRrnd6a4_u_4mA';
-
-const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     token: token,
@@ -13,64 +9,42 @@ const authSuccess = (token, userId) => {
   };
 };
 
-const authFail = (error) => {
+export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
     error: error
   };
 };
 
-const authStart = () => {
+export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
   };
 };
 
-const checkAuthTimeout = (expirationTime) => {
+export const checkAuthTimeout = (expirationTime) => {
   return {
     type: actionTypes.AUTH_CHECK_TIMEOUT,
     expirationTime
   };
 };
 
-const doAuth = async (dispatch, email, password, urlComplement) => {
-  const payload = {
-    email: email,
-    password: password,
-    returnSecureToken: true
-  };
-  try {
-    const response = await axios.post(
-      `${BASE_URL}${urlComplement}?key=${API_KEY}`,
-      payload
-    );
-    const expiresInMillis = +response.data.expiresIn * 1000;
-    const expirationDate = new Date(new Date().getTime() + expiresInMillis);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      token: response.data.idToken,
-      userId: response.data.localId,
-      expirationDate: expirationDate
-    }));
-    dispatch(authSuccess(response.data.idToken, response.data.localId));
-    dispatch(checkAuthTimeout(expiresInMillis));
-  } catch (error) {
-    dispatch(authFail(error));
-  }
-};
-
-const dispatchAuth = (email, password, urlComplement) => {
-  return dispatch => {
-    dispatch(authStart());
-    doAuth(dispatch, email, password, urlComplement);
-  };
-};
-
 export const signIn = (email, password) => {
-  return dispatchAuth(email, password, 'signInWithPassword');
+  return {
+    type: actionTypes.AUTH_USER,
+    email,
+    password,
+    urlComplement: 'signInWithPassword'
+  };
 };
 
 export const signUp = (email, password) => {
-  return dispatchAuth(email, password, 'signUp');
+  return {
+    type: actionTypes.AUTH_USER,
+    email,
+    password,
+    urlComplement: 'signUp'
+  };
 };
 
 export const initiateSignOut = () => {
