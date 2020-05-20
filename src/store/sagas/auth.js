@@ -1,4 +1,4 @@
-import { delay, put } from 'redux-saga/effects';
+import { delay, put, call } from 'redux-saga/effects';
 
 import * as actions from '../actions';
 import axios from 'axios';
@@ -8,7 +8,8 @@ const BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:';
 const API_KEY = 'AIzaSyCv1I87seMOrUkt2qmRkdRrnd6a4_u_4mA';
 
 export function* signOutSaga() {
-  yield localStorage.removeItem(STORAGE_KEY);
+  yield call([localStorage, 'removeItem'], STORAGE_KEY);
+  // yield localStorage.removeItem(STORAGE_KEY);
   yield put(actions.signOut());
 }
 
