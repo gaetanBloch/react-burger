@@ -30,7 +30,7 @@ const App = (props) => {
 
   let routes = (
     <Switch>
-      <Route path="/auth" component={Auth} />
+      <Route path="/auth" render={() => <Auth />} />
       <Route path="/" component={BurgerBuilder} exact />
       <Redirect to='/' />
     </Switch>
@@ -38,11 +38,11 @@ const App = (props) => {
   if (props.isAuthenticated) {
     routes = (
       <Switch>
-        <Route path="/checkout" component={Checkout} exact />
-        <Route path="/checkout/contact-data" component={ContactData} />
-        <Route path="/orders" component={Orders} />
+        <Route path="/checkout" component={() => <Checkout />} exact />
+        <Route path="/checkout/contact-data" component={() => <ContactData />} />
+        <Route path="/orders" component={() => <Orders />} />
         <Route path="/sign-out" component={SignOut} />
-        <Route path="/auth" component={Auth} />
+        <Route path="/auth" component={() => <Auth />} />
         <Route path="/" component={BurgerBuilder} exact />
         <Redirect to='/' />
       </Switch>
