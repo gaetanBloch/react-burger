@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -7,23 +7,18 @@ import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import SignOut from './containers/Auth/SignOut/SignOut';
 import * as actions from './store/actions/index';
-import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
-const asyncCheckout = asyncComponent(() => {
-  return import('./containers/Checkout/Checkout');
-});
+const Checkout = lazy(() =>
+  import('./containers/Checkout/Checkout'));
 
-const asyncOrders = asyncComponent(() => {
-  return import('./containers/Orders/Orders');
-});
+const Orders = lazy(() =>
+  import('./containers/Orders/Orders'));
 
-const asyncAuth = asyncComponent(() => {
-  return import('./containers/Auth/Auth');
-});
+const Auth = lazy(() =>
+  import('./containers/Auth/Auth'));
 
-const asyncContactData = asyncComponent(() => {
-  return import('./containers/Checkout/ContactData/ContactData');
-});
+const ContactData = lazy(() =>
+  import('./containers/Checkout/ContactData/ContactData'));
 
 const App = (props) => {
 
@@ -35,7 +30,7 @@ const App = (props) => {
 
   let routes = (
     <Switch>
-      <Route path="/auth" component={asyncAuth} />
+      <Route path="/auth" component={Auth} />
       <Route path="/" component={BurgerBuilder} exact />
       <Redirect to='/' />
     </Switch>
@@ -43,11 +38,11 @@ const App = (props) => {
   if (props.isAuthenticated) {
     routes = (
       <Switch>
-        <Route path="/checkout" component={asyncCheckout} exact />
-        <Route path="/checkout/contact-data" component={asyncContactData} />
-        <Route path="/orders" component={asyncOrders} />
+        <Route path="/checkout" component={Checkout} exact />
+        <Route path="/checkout/contact-data" component={ContactData} />
+        <Route path="/orders" component={Orders} />
         <Route path="/sign-out" component={SignOut} />
-        <Route path="/auth" component={asyncAuth} />
+        <Route path="/auth" component={Auth} />
         <Route path="/" component={BurgerBuilder} exact />
         <Redirect to='/' />
       </Switch>
@@ -57,7 +52,7 @@ const App = (props) => {
   return (
     <div className={styles.App}>
       <Layout>
-        {routes}
+        <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
       </Layout>
     </div>
   );
