@@ -39,7 +39,7 @@ const BurgerBuilder = props => {
     dispatch(actions.setAuthRedirectPath(path));
 
   useEffect(() => {
-    onInitIngredients();
+    // onInitIngredients();
   }, [onInitIngredients]);
 
   const isPurchasable = () => {
@@ -119,26 +119,4 @@ const BurgerBuilder = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    ingredients: state.burgerBuilder.ingredients,
-    totalPrice: state.burgerBuilder.totalPrice,
-    error: state.burgerBuilder.error,
-    isAuthenticated: state.auth.token !== null
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onIngredientAdded: (ingredientType) =>
-      dispatch(actions.addIngredient(ingredientType)),
-    onIngredientRemoved: (ingredientType) =>
-      dispatch(actions.removeIngredient(ingredientType)),
-    onInitIngredients: () => dispatch(actions.initIngredients()),
-    onInitPurchase: () => dispatch(actions.purchaseInit()),
-    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)
-(withErrorHandler(BurgerBuilder, axios));
+export default withErrorHandler(BurgerBuilder, axios);
