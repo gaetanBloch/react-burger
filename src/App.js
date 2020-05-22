@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -25,42 +25,43 @@ const asyncContactData = asyncComponent(() => {
   return import('./containers/Checkout/ContactData/ContactData');
 });
 
-class App extends Component {
-  componentDidMount () {
-    this.props.onTryAutoSignIn();
-  }
+const App = (props) => {
 
-  render () {
-    let routes = (
+  const { onTryAutoSignIn } = props;
+
+  useEffect(() => {
+    onTryAutoSignIn();
+  }, [onTryAutoSignIn]);
+
+  let routes = (
+    <Switch>
+      <Route path="/auth" component={asyncAuth} />
+      <Route path="/" component={BurgerBuilder} exact />
+      <Redirect to='/' />
+    </Switch>
+  );
+  if (props.isAuthenticated) {
+    routes = (
       <Switch>
+        <Route path="/checkout" component={asyncCheckout} exact />
+        <Route path="/checkout/contact-data" component={asyncContactData} />
+        <Route path="/orders" component={asyncOrders} />
+        <Route path="/sign-out" component={SignOut} />
         <Route path="/auth" component={asyncAuth} />
         <Route path="/" component={BurgerBuilder} exact />
         <Redirect to='/' />
       </Switch>
     );
-    if (this.props.isAuthenticated) {
-      routes = (
-        <Switch>
-          <Route path="/checkout" component={asyncCheckout} exact />
-          <Route path="/checkout/contact-data" component={asyncContactData} />
-          <Route path="/orders" component={asyncOrders} />
-          <Route path="/sign-out" component={SignOut} />
-          <Route path="/auth" component={asyncAuth} />
-          <Route path="/" component={BurgerBuilder} exact />
-          <Redirect to='/' />
-        </Switch>
-      );
-    }
-
-    return (
-      <div className={styles.App}>
-        <Layout>
-          {routes}
-        </Layout>
-      </div>
-    );
   }
-}
+
+  return (
+    <div className={styles.App}>
+      <Layout>
+        {routes}
+      </Layout>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {
