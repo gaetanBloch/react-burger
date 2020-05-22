@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import axios from '../../axios-orders';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -15,6 +15,17 @@ const BurgerBuilder = props => {
   const [purchasing, setPurchasing] = useState(false);
 
   const dispatch = useDispatch();
+
+  const { ingredients, totalPrice, error, isAuthenticated } = useSelector(
+    state => {
+      return {
+        ingredients: state.burgerBuilder.ingredients,
+        totalPrice: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error,
+        isAuthenticated: state.auth.token !== null
+      };
+    }
+  );
 
   const onIngredientAdded = (ingredientType) =>
     dispatch(actions.addIngredient(ingredientType));
@@ -36,15 +47,15 @@ const BurgerBuilder = props => {
     // Object.keys(ingredients).forEach(key => {
     //   sumIngredients += ingredients[key];
     // })
-    const sumIngredients = Object.keys(props.ingredients)
-      .map(key => props.ingredients[key])
+    const sumIngredients = Object.keys(ingredients)
+      .map(key => ingredients[key])
       .reduce((sum, element) => sum + element, 0);
 
     return sumIngredients > 0;
   };
 
   const purchaseHandler = () => {
-    if (props.isAuthenticated) {
+    if (isAuthenticated) {
       setPurchasing(true);
     } else {
       onSetAuthRedirectPath('/checkout');
@@ -69,29 +80,29 @@ const BurgerBuilder = props => {
   let orderSummary = null;
   let burger;
 
-  if (props.error) {
+  if (error) {
     burger =
       <p style={{ textAlign: 'center' }}>Ingredients can't be loaded!</p>;
   } else {
     burger = <Spinner />;
   }
 
-  if (props.ingredients) {
+  if (ingredients) {
     burger = <Fragment>
-      <Burger ingredients={props.ingredients} />
+      <Burger ingredients={ingredients} />
       <BuildControls
-        price={props.totalPrice}
+        price={totalPrice}
         purchasable={isPurchasable()}
         ingredientAdded={onIngredientAdded}
         ingredientRemoved={onIngredientRemoved}
         ordered={purchaseHandler}
-        isAuth={props.isAuthenticated}
+        isAuth={isAuthenticated}
         disabled={disabledInfo} />
     </Fragment>;
 
     orderSummary = <OrderSummary
-      ingredients={props.ingredients}
-      price={props.totalPrice}
+      ingredients={ingredients}
+      price={totalPrice}
       purchaseCancelled={purchaseCancelHandler}
       purchaseContinued={purchaseContinueHandler} />;
   }
