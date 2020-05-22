@@ -22,13 +22,12 @@ const checkValidity = (value, rules) => {
   return isValid;
 };
 
-export const handleChangedForm = (event, inputId, formKey, that) => {
-  const updatedForm = updateObject(that.state[formKey], {
-    [inputId]: updateObject(that.state[formKey][inputId], {
+export const handleChangedForm = (event, inputId, form, setForm, setIsValid) => {
+  const updatedForm = updateObject(form, {
+    [inputId]: updateObject(form[inputId], {
         value: event.target.value,
         valid: checkValidity(
-          event.target.value,
-          that.state[formKey][inputId].validation,
+          event.target.value, form[inputId].validation,
         ),
         touched: true
       }
@@ -41,7 +40,8 @@ export const handleChangedForm = (event, inputId, formKey, that) => {
     formIsValid = updatedForm[inputId].valid && formIsValid;
   });
 
-  that.setState({ [formKey]: updatedForm, formIsValid: formIsValid });
+  setForm(updatedForm);
+  setIsValid(formIsValid);
 };
 
 export const initializeFormElement = (
