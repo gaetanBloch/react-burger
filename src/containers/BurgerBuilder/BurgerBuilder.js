@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import axios from '../../axios-orders';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -12,9 +12,20 @@ import * as actions from '../../store/actions/index';
 
 const BurgerBuilder = props => {
 
-  const { onInitIngredients } = props;
-
   const [purchasing, setPurchasing] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const onIngredientAdded = (ingredientType) =>
+    dispatch(actions.addIngredient(ingredientType));
+  const onIngredientRemoved = (ingredientType) =>
+    dispatch(actions.removeIngredient(ingredientType));
+  const onInitIngredients = () =>
+    dispatch(actions.initIngredients());
+  const onInitPurchase = () =>
+    dispatch(actions.purchaseInit());
+  const onSetAuthRedirectPath = (path) =>
+    dispatch(actions.setAuthRedirectPath(path));
 
   useEffect(() => {
     onInitIngredients();
@@ -36,7 +47,7 @@ const BurgerBuilder = props => {
     if (props.isAuthenticated) {
       setPurchasing(true);
     } else {
-      props.onSetAuthRedirectPath('/checkout');
+      onSetAuthRedirectPath('/checkout');
       props.history.push('/auth');
     }
   };
@@ -46,7 +57,7 @@ const BurgerBuilder = props => {
   };
 
   const purchaseContinueHandler = () => {
-    props.onInitPurchase();
+    onInitPurchase();
     props.history.push('/checkout');
   };
 
@@ -71,8 +82,8 @@ const BurgerBuilder = props => {
       <BuildControls
         price={props.totalPrice}
         purchasable={isPurchasable()}
-        ingredientAdded={props.onIngredientAdded}
-        ingredientRemoved={props.onIngredientRemoved}
+        ingredientAdded={onIngredientAdded}
+        ingredientRemoved={onIngredientRemoved}
         ordered={purchaseHandler}
         isAuth={props.isAuthenticated}
         disabled={disabledInfo} />
