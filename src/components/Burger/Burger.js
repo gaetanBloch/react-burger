@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './Burger.module.css'
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
-const Burger = (props) => {
+const Burger = props => {
   let ingredients = Object.keys(props.ingredients)
     .map(ingredientKey => {
       return [...Array(props.ingredients[ingredientKey])].map((_, index) => {
