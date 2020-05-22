@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import axios from '../../axios-orders';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
@@ -31,15 +31,15 @@ const BurgerBuilder = props => {
     dispatch(actions.addIngredient(ingredientType));
   const onIngredientRemoved = (ingredientType) =>
     dispatch(actions.removeIngredient(ingredientType));
-  const onInitIngredients = () =>
-    dispatch(actions.initIngredients());
+  const onInitIngredients = useCallback(() =>
+    dispatch(actions.initIngredients()), [dispatch]);
   const onInitPurchase = () =>
     dispatch(actions.purchaseInit());
   const onSetAuthRedirectPath = (path) =>
     dispatch(actions.setAuthRedirectPath(path));
 
   useEffect(() => {
-    // onInitIngredients();
+    onInitIngredients();
   }, [onInitIngredients]);
 
   const isPurchasable = () => {
