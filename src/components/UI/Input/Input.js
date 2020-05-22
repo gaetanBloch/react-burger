@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Input.module.css';
 
-const Input = (props) => {
+const Input = props => {
   let inputClasses = [styles.InputElement];
   let labelClass;
   if (props.invalid && props.shouldValidate && props.touched) {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Order.module.css'
 
-const Order = (props) => {
+const Order = props => {
     const ingredients = [];
     Object.keys(props.ingredients).forEach(ingredientName => {
       ingredients.push({
