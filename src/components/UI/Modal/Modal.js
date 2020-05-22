@@ -5,11 +5,6 @@ import styles from './Modal.module.css';
 import Backdrop from '../Backdrop/Backdrop';
 
 const Modal = props => {
-  // const shouldComponentUpdate = (nextProps, nextState, nextContext) => {
-  //   return nextProps.show !== this.props.show
-  //     || nextProps.children !== this.props.children;
-  // };
-
   return (
     <Fragment>
       <Backdrop show={props.show} clicked={props.modalClosed} />
@@ -30,4 +25,7 @@ Modal.propTypes = {
   modalClosed: PropTypes.func.isRequired
 };
 
-export default React.memo(Modal);
+export default React.memo(Modal, (prevProps, nextProps) => {
+  return nextProps.show === prevProps.show
+    && nextProps.children === prevProps.children;
+});
