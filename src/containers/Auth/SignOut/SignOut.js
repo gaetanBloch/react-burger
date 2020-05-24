@@ -6,18 +6,20 @@ import * as actions from '../../../store/actions/index';
 
 const SignOut = props => {
 
-  const { onSignOut } = props;
+  const { onSignOut, onSetAuthRedirectPath } = props;
 
   useEffect(() => {
     onSignOut();
-  }, [onSignOut]);
+    onSetAuthRedirectPath();
+  }, [onSignOut, onSetAuthRedirectPath]);
 
   return <Redirect to="/auth" />;
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignOut: () => dispatch(actions.initiateSignOut())
+    onSignOut: () => dispatch(actions.initiateSignOut()),
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
   };
 };
 
