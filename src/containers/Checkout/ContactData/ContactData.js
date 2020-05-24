@@ -9,6 +9,7 @@ import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
 import { handleChangedForm, initializeFormElement } from '../../formUtils';
+import { Redirect } from 'react-router';
 
 const ContactData = props => {
   const [orderForm, setOrderForm] = useState({
@@ -122,8 +123,11 @@ const ContactData = props => {
     form = <Spinner />;
   }
 
+  const purchasedRedirect = props.purchased ? <Redirect to="/" /> : null;
+
   return (
     <div className={styles.ContactData}>
+      {purchasedRedirect}
       <h3>Enter your Contact Data</h3>
       {form}
     </div>
@@ -136,7 +140,8 @@ const mapStateToProps = state => {
     totalPrice: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
     token: state.auth.token,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    purchased: state.order.purchased
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -22,17 +22,12 @@ const Checkout = props => {
   let summary = <Redirect to="/" />;
 
   if (props.ingredients) {
-    const purchasedRedirect = props.purchased ? <Redirect to="/" /> : null;
-
     summary = (
-      <Fragment>
-        {purchasedRedirect}
-        <CheckoutSummary
-          ingredients={props.ingredients}
-          totalPrice={props.totalPrice}
-          checkoutCancelled={checkoutCancelledHandler}
-          checkoutContinued={checkoutContinuedHandler} />
-      </Fragment>
+      <CheckoutSummary
+        ingredients={props.ingredients}
+        totalPrice={props.totalPrice}
+        checkoutCancelled={checkoutCancelledHandler}
+        checkoutContinued={checkoutContinuedHandler} />
     );
   }
 
@@ -42,8 +37,7 @@ const Checkout = props => {
 const mapStateToProps = state => {
   return {
     ingredients: state.burgerBuilder.ingredients,
-    totalPrice: state.burgerBuilder.totalPrice,
-    purchased: state.order.purchased
+    totalPrice: state.burgerBuilder.totalPrice
   };
 };
 
